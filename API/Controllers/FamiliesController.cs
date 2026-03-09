@@ -1,7 +1,9 @@
 ﻿using API.DTOs;
 using DataAccess;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BusinessLayer.Services;
 
 namespace API.Controllers;
 
@@ -10,10 +12,14 @@ namespace API.Controllers;
 public class FamiliesController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly PhotoService _photoService;
+    private readonly IWebHostEnvironment _environment;
 
-    public FamiliesController(AppDbContext context)
+    public FamiliesController(AppDbContext context, PhotoService photoService, IWebHostEnvironment environment)
     {
         _context = context;
+        _photoService = photoService;
+        _environment = environment;
     }
 
     // GET: api/families
@@ -95,5 +101,47 @@ public class FamiliesController : ControllerBase
             .ToListAsync();
 
         return Ok(results);
+    }
+
+    // PUT: api/families/{id}
+    // Updates a family's profile. All fields are optional — only provided fields are changed.
+    [HttpPut("{id}")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> UpdateFamilyProfile(int id, [FromForm] UpdateFamilyRequest request)
+    {
+        var family = await _context.Families.FindAsync(id);
+        if (family == null) return NotFound("Family not found.");
+
+        // Apply updates only for fields that were provided
+        if (!string.IsNullOrWhiteSpace(request.Name))
+            family.Name = request.Name;
+
+        if (!string.IsNullOrWhiteSpace(request.WhatsAppNumber))
+            family.WhatsAppNumber = request.WhatsAppNumber;
+
+        if (request.Location != null)
+            family.Location = request.Location;
+
+        if (request.Bio != null)
+            family.Bio = request.Bio;
+
+        // Replace profile image if a new file was uploaded
+        if (request.ProfileImage != null && request.ProfileImage.Length > 0)
+        {
+            // Delete old profile image from disk
+            if (!string.IsNullOrEmpty(family.ProfileImageUrl))
+            {
+                var oldPath = Path.Combine(_environment.WebRootPath, family.ProfileImageUrl.TrimStart('/'));
+                if (System.IO.File.Exists(oldPath))
+                    System.IO.File.Delete(oldPath);
+            }
+
+            var newImageUrl = await _photoService.SavePhotoAsync(request.ProfileImage, "profiles");
+            if (string.IsNullOrEmpty(newImageUrl)) return BadRequest("Image upload failed.");
+            family.ProfileImageUrl = newImageUrl;
+        }
+
+        await _context.SaveChangesAsync();
+        return Ok(family);
     }
 }

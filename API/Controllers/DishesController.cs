@@ -2,6 +2,7 @@
 using DataAccess;
 using DataAccess.Entities;
 using BusinessLayer.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +14,13 @@ public class DishesController : ControllerBase
 {
     private readonly AppDbContext _context;
     private readonly PhotoService _photoService;
+    private readonly IWebHostEnvironment _environment;
 
-    public DishesController(AppDbContext context, PhotoService photoService)
+    public DishesController(AppDbContext context, PhotoService photoService, IWebHostEnvironment environment)
     {
         _context = context;
         _photoService = photoService;
+        _environment = environment;
     }
 
     // GET: api/dishes
@@ -108,5 +111,69 @@ public class DishesController : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok(dish);
+    }
+
+    // PUT: api/dishes/{id}
+    // Updates an existing dish. All fields are optional — only provided fields are changed.
+    [HttpPut("{id}")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> UpdateDish(int id, [FromForm] UpdateDishRequest request)
+    {
+        var dish = await _context.Dishes.FindAsync(id);
+        if (dish == null) return NotFound("Dish not found.");
+
+        // Apply updates only for fields that were provided
+        if (!string.IsNullOrWhiteSpace(request.Name))
+            dish.Name = request.Name;
+
+        if (request.Description != null)
+            dish.Description = request.Description;
+
+        if (request.Price.HasValue)
+            dish.Price = request.Price.Value;
+
+        if (request.CategoryId.HasValue)
+            dish.CategoryId = request.CategoryId.Value;
+
+        // Replace image if a new file was uploaded
+        if (request.File != null && request.File.Length > 0)
+        {
+            // Delete old image from disk
+            if (!string.IsNullOrEmpty(dish.ImageUrl))
+            {
+                var oldPath = Path.Combine(_environment.WebRootPath, dish.ImageUrl.TrimStart('/'));
+                if (System.IO.File.Exists(oldPath))
+                    System.IO.File.Delete(oldPath);
+            }
+
+            var newImageUrl = await _photoService.SavePhotoAsync(request.File, "dishes");
+            if (string.IsNullOrEmpty(newImageUrl)) return BadRequest("Image upload failed.");
+            dish.ImageUrl = newImageUrl;
+        }
+
+        await _context.SaveChangesAsync();
+        return Ok(dish);
+    }
+
+    // DELETE: api/dishes/{id}
+    // Deletes a dish and removes its image from disk
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteDish(int id)
+    {
+        var dish = await _context.Dishes.FindAsync(id);
+        if (dish == null) return NotFound("Dish not found.");
+
+        // Remove image file from disk
+        if (!string.IsNullOrEmpty(dish.ImageUrl))
+        {
+            var imagePath = Path.Combine(_environment.WebRootPath, dish.ImageUrl.TrimStart('/'));
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
+        }
+
+        _context.Dishes.Remove(dish);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
     }
 }
