@@ -1,0 +1,50 @@
+## .NET / ASP.NET Core .gitignore
+
+# Build results
+bin/
+obj/
+out/
+publish/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!packages/build/
+.nuget/
+
+# User-specific files
+*.rsuser
+
+# MSBuild
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment / Secrets
+appsettings.Development.json
+*.env
+.env
+
+# Rider
+.idea/
+
+# dotnet
+.dotnet/
+
+# Test results
+TestResults/
