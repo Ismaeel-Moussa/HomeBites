@@ -1,33 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Routes, Route, Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { Button, Typography, Space, Spin, Alert } from 'antd'
+import './App.scss'
+
+const { Title, Paragraph } = Typography
+
+// Mock fetch function
+const fetchMockData = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+  return { message: 'Data fetched successfully via TanStack Query!' }
+}
+
+const Home = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['mockData'],
+    queryFn: fetchMockData,
+  })
 
   return (
+    <div className="card">
+      <Space direction="vertical" size="large">
+        <Title level={2}>Home Page</Title>
+        <Paragraph>Welcome to the React + Ant Design + React Query app.</Paragraph>
+        
+        {isLoading && <Spin tip="Loading data from query..." />}
+        {isError && <Alert message="Error fetching data" type="error" />}
+        {data && <Alert message={data.message} type="success" />}
+
+        <Link to="/about">
+          <Button type="primary">Go to About Page</Button>
+        </Link>
+      </Space>
+    </div>
+  )
+}
+
+const About = () => {
+  return (
+    <div className="card">
+      <Space direction="vertical" size="large">
+        <Title level={2}>About Page</Title>
+        <Paragraph>This page demonstrates React Router functionality.</Paragraph>
+        <Link to="/">
+          <Button>Back to Home</Button>
+        </Link>
+      </Space>
+    </div>
+  )
+}
+
+function App() {
+  return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Title level={1}>HomeBites Platform</Title>
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </>
   )
 }
