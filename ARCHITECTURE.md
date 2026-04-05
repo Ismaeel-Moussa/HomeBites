@@ -3,7 +3,8 @@
 ## Change History
 | Date | Version | Description | Author |
 | :--- | :--- | :--- | :--- |
-| 2026-03-30 | 1.0 | Initial architectural framework | [Your Name] |
+| 2026-03-30 | 1.0 | Initial architectural framework | Ali Anaam |
+| 2026-04-05 | 1.1 |  Added Process Architecture, Size & Performance, and Quality | Ali Anaam  |
 
 ## Table of Contents
 1. [Scope](#1-scope)
@@ -21,7 +22,7 @@
 
 ## List of Figures
 * [Figure 1: High-Level Logical Component Diagram](#figure-1)
-* [Figure 2: Deployment Mapping](#figure-2)
+* [Figure 2: Order Process Sequence Diagram](#figure-2)
 
 ---
 
@@ -30,7 +31,7 @@
 * what will the system do and what will it not do 
 
 ## 2. References
-*List any external documents, requirement specs, or technical standards used.*
+* Kruchten’s 4+1 Model: Architectural framework used for this document. [4+1 architectural view model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model).
 
 ## 3. Software Architecture
 *Provide a high-level overview of the system's structural design.*
@@ -48,10 +49,37 @@ This section details the domain entities, their relationships, and the architect
 ![Home Bites Logical View Diagram](./Logical-View-UMLDigram.png)
 
 ## 6. Process Architecture
-*Explain the system's runtime behavior, including communication between services.*
+This part describes the system workflow and interactions between components during runtime.
 <a name="figure-2"></a>
-### Figure 2: Deployment Mapping
-*(Place your infrastructure diagram here)*
+### Figure 2: Order Process Sequence Diagram
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as Frontend (React)
+    participant B as Backend API (.NET)
+    participant D as Database (SQL)
+    participant W as WhatsApp
+
+    U->>F: Opens Home Bites
+    F->>B: GET /api/dishes
+    B->>D: Query available dishes
+    D-->>B: Return data
+    B-->>F: Return JSON response
+    F-->>U: Display Dish Gallery
+    
+    U->>F: Clicks "Order via WhatsApp"
+    F->>F: Generate pre-filled message
+    F->>W: Redirect to wa.me/number?text=...
+    W-->>U: Open Chat with Order Details
+  ```
+### Process Explanation
+1. **Access:** The user opens the Home Bites platform.  
+2. **Request:** The frontend sends a request to the backend API to retrieve available dishes.  
+3. **Fetch:** The backend communicates with the database to fetch the required data.  
+4. **Display:** The data is returned to the frontend and displayed to the user.  
+5. **Selection:** The user selects a dish and clicks on "Order via WhatsApp".  
+6. **Generation:** The system generates a pre-filled message containing dish details.  
+7. **Redirection:** The user is redirected to WhatsApp to complete the order externally.
 
 ## 7. Development Architecture
 *Details regarding the code structure, libraries, and development environment.*
@@ -65,10 +93,77 @@ This section details the domain entities, their relationships, and the architect
 * stories, like when a customer browse for food
 
 ## 10. Size and Performance
-*Metrics regarding data volume, user capacity, and expected latency.*
+This system is designed for a small number of users, focusing on simplicity and efficiency.
+
+### Data Size Estimation
+* **Families:** 50 – 100 records  
+* **Dishes:** 200 – 500 records  
+* **Categories:** 5 – 20 records  
+* **Images:** Stored as external URLs (optimized for fast loading)  
+
+### Performance Requirements
+* **API Response Time:** < 2 seconds  
+* **Page Load Time:** < 3 seconds  
+* **Concurrent Users:** Supports up to 30 users  
+
+### Optimization Techniques
+* Basic query optimization using **Entity Framework Core**.  
+* Simple pagination to limit data transfer.  
+* Use of asynchronous API calls to prevent blocking.  
 
 ## 11. Quality
-*How the system ensures reliability, maintainability, and portability.*
+
+### Error Handling
+
+The system uses simple error handling to ensure a smooth user experience for a small number of users.
+
+#### Frontend Error Handling
+
+- Display simple and clear messages:
+  - "Failed to load data"
+  - "Something went wrong"
+- Allow the user to retry the request  
+- Basic input validation before sending requests  
+
+---
+
+#### Backend Error Handling
+
+- Use try-catch blocks to handle errors  
+- Return simple HTTP status codes:
+
+| Code | Description |
+|------|------------|
+| 200  | Success |
+| 400  | Bad Request |
+| 404  | Not Found |
+| 500  | Internal Server Error |
+
+---
+
+#### Common Error Scenarios
+
+- Server or database connection failure → 500 error  
+- Requested dish not found → 404 error  
+- Invalid user input → 400 error  
+
+---
+
+#### Logging
+
+- Basic error logging for debugging purposes
+
+### Security Considerations
+
+Since the system redirects users to WhatsApp for order communication, it does not handle or store sensitive data such as payment information.
+
+This design reduces security risks because:
+
+- No payment or financial data is processed within the system 
+- No sensitive user information is stored in the database  
+- Communication is handled through WhatsApp, which provides its own security mechanisms  
+
+Overall, the system minimizes security vulnerabilities by keeping transactions external and maintaining a simple data structure.
 
 ---
 
