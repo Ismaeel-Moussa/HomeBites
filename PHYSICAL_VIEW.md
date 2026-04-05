@@ -21,3 +21,27 @@ This document defines the deployment architecture for the Home Bites platform. T
 4. **External Integrations**
    - **API:** WhatsApp API.
    - **Purpose:** Handles external order delegation using dynamic URI strings.
+
+## Deployment Diagram
+
+```mermaid
+flowchart TD
+    subgraph Client ["Client Devices (Mobile / PC)"]
+        UI["React.js SPA (Frontend)"]
+    end
+
+    subgraph Server ["Web Server"]
+        API["ASP.NET Core Web API (Backend)"]
+    end
+
+    subgraph Database ["Database Server"]
+        DB[("SQL Server")]
+    end
+
+    subgraph External ["External Services"]
+        WA["WhatsApp API"]
+    end
+
+    UI -- "HTTPS (REST API)" --> API
+    API -- "Entity Framework Core" --> DB
+    UI -- "Order Redirect" --> WA
