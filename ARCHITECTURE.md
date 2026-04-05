@@ -41,11 +41,11 @@
 * **Constraints:** (e.g., Must use AWS, legacy database compatibility)
 
 ## 5. Logical Architecture
-*Describe the functional components and how they relate to one another.*
+This section details the domain entities, their relationships, and the architectural layers of the Home Bites platform.
 
 <a name="figure-1"></a>
 ### Figure 1: High-Level Logical Component Diagram
-*(Place your diagram or image link here)*
+![Home Bites Logical View Diagram](./Logical-View-UMLDigram.png)
 
 ## 6. Process Architecture
 *Explain the system's runtime behavior, including communication between services.*
@@ -74,13 +74,48 @@
 
 ## Appendices
 
-### Acronyms and Abbreviations
-* **API**: Application Programming Interface
-* **SDK**: Software Development Kit
+### Design Principles & Architectural Patterns
+The Home Bites backend prioritizes maintainability and scalability through the following architectural patterns:
 
-### Definitions
-* **Service**: A self-contained unit of functionality.
+Layered Architecture (Separation of Concerns)
+System logic is divided to prevent cascading failures:
 
-### Design Principles
-* **SOLID**: Principles of object-oriented design.
-* **Separation of Concerns**: Modularizing the application into distinct sections.
+Domain Layer: Contains core business entities (Family, Dish, Category) and Identity models.
+
+Data Access Layer: Uses EF Core to manage the database, isolating SQL logic.
+
+API/Presentation Layer: ASP.NET Controllers handle HTTP requests and delegate heavy lifting to services.
+
+The Repository Pattern
+Controllers interact with abstraction interfaces (IFamilyRepository, IDishRepository) instead of querying the database directly. This centralizes data access and makes unit testing much easier.
+
+Dependency Injection (DI)
+Services and repositories are injected into controllers at runtime using ASP.NET Core's built-in DI, preventing tight coupling between classes.
+
+SOLID Principles
+
+SRP (Single Responsibility): Classes have one strict job (e.g., WhatsAppLinkGeneratorService only formats links; it doesn't touch the database).
+
+DIP (Dependency Inversion): Controllers depend on abstractions (interfaces) rather than concrete implementations, allowing us to swap out logic easily.
+
+Security & Identity Abstraction
+Using ASP.NET Core Identity provides secure, industry-standard password hashing and token validation, linking a family's dashboard access (FamilyId) directly to an ApplicationUser.
+
+Acronyms and Definitions
+API: Protocols allowing the React frontend to communicate with the ASP.NET Core backend.
+
+CORS: A security feature allowing the frontend to safely make HTTP requests to the backend across different domains.
+
+DI (Dependency Injection): Providing objects to a class rather than the class creating them directly, promoting loose coupling.
+
+EF Core: The Object-Relational Mapper (ORM) bridging C# models with the SQL Server database (Code-First approach).
+
+Identity (ASP.NET Core Identity): The built-in framework managing secure user authentication and authorization.
+
+Repository Pattern: Abstracting database operations behind interfaces to separate data access from business logic.
+
+SOLID: Five object-oriented design principles intended to make software flexible and maintainable.
+
+SPA (Single Page Application): A web app (React.js) that dynamically updates the current page without reloading, resulting in a faster user experience.
+
+UML: A standard modeling language used to visualize software architecture.
