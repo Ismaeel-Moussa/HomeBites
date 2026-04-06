@@ -82,7 +82,31 @@ sequenceDiagram
 7. **Redirection:** The user is redirected to WhatsApp to complete the order externally.
 
 ## 7. Development Architecture
-*Details regarding the code structure, libraries, and development environment.*
+
+Details regarding the code structure, libraries, and development environment.
+
+### 7.1 Package Decomposition
+The Home Bites system is organized into two main development environments to ensure a clear separation of concerns:
+
+- Frontend : A React.js application organized by functionality (Components, Services for API calls, and Assets).
+- Backend :An ASP.NET Core Web API structured using the Layered Architecture pattern, including Controllers, Models, and Data Access layers.
+
+### 7.2 Module Dependencies
+- UI Framework:Tailwind CSS for rapid responsive design.
+- Data Access: Entity Framework Core (Code First) to manage database interactions.
+- Communication: Axios/Fetch for connecting React components to backend RESTful endpoints.
+- External Integration: WhatsApp Dynamic URI Linker to facilitate external order handling.
+
+### 7.3 Folder Structure
+HomeBites/
+├── client/ (Frontend)
+│   ├── src/components/
+│   ├── src/services/ (WhatsApp logic)
+├── server/ (Backend)
+│   ├── Controllers/
+│   ├── Models/
+│   ├── Data/
+└── docs/ (Architecture Diagrams)
 
 ## 8. Physical Architecture
 *The infrastructure setup, including servers, networks, and deployment environments.(e.g., users laptop)*
