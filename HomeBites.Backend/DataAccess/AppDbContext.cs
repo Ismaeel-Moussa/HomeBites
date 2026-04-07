@@ -1,28 +1,27 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
 namespace DataAccess;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<User> Users { get; set; }
     public DbSet<Family> Families { get; set; }
     public DbSet<Dish> Dishes { get; set; }
     public DbSet<Category> Categories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
-            .HasOne(u => u.Family)
-            .WithOne(f => f.User)
-            .HasForeignKey<Family>(f => f.UserId);
+        base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<User>()
-        .HasIndex(u => u.Email)
-        .IsUnique();
+        modelBuilder.Entity<Family>()
+            .HasOne(f => f.User)
+            .WithOne(u => u.Family)
+            .HasForeignKey<Family>(f => f.UserId);
 
         modelBuilder.Entity<Dish>()
             .Property(d => d.Price)
@@ -36,13 +35,7 @@ public class AppDbContext : DbContext
             new Category { Id = 4, Name = "Bakery" }
         );
 
-        // --- 2. SEED USERS ---
-        modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, Email = "sham@homebites.com", Password = "password123" },
-            new User { Id = 2, Email = "iraqi@homebites.com", Password = "password123" }
-        );
-
-        // --- 3. SEED FAMILIES ---
+        // --- 2. SEED FAMILIES ---
         modelBuilder.Entity<Family>().HasData(
             new Family
             {

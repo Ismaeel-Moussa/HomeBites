@@ -1,6 +1,8 @@
 using BusinessLayer.DTOs;
 using BusinessLayer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace API.Controllers;
 
@@ -34,6 +36,7 @@ public class DishesController : ControllerBase
     // POST: api/dishes
     [HttpPost]
     [Consumes("multipart/form-data")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "FamilyOnly")]
     public async Task<IActionResult> CreateDish([FromForm] CreateDishRequest request)
     {
         try
@@ -50,6 +53,7 @@ public class DishesController : ControllerBase
     // PUT: api/dishes/{id}
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "FamilyOnly")]
     public async Task<IActionResult> UpdateDish(int id, [FromForm] UpdateDishRequest request)
     {
         try
@@ -66,6 +70,7 @@ public class DishesController : ControllerBase
 
     // DELETE: api/dishes/{id}
     [HttpDelete("{id}")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "FamilyOnly")]
     public async Task<IActionResult> DeleteDish(int id)
     {
         var deleted = await _dishService.DeleteDishAsync(id);

@@ -1,16 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace DataAccess.Entities;
 
-namespace DataAccess.Entities;
-
+// Legacy user entity kept temporarily only to support existing migrations.
+// New authentication is handled by ASP.NET Identity's ApplicationUser.
 public class User
 {
-    [Key]
-    public int Id { get; set; }
-    [Required, EmailAddress]
-    public string Email { get; set; } = string.Empty;
-    [Required]
-    public string Password { get; set; } = string.Empty;
-
-    // 1-to-1: A user has one family profile
-    public Family? Family { get; set; }
 }

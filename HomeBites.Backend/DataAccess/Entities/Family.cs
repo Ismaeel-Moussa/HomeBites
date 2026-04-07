@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DataAccess.Identity;
 
 namespace DataAccess.Entities;
 
@@ -12,9 +13,9 @@ public class Family
     public string? Bio {  get; set; }
     public string? ProfileImageUrl { get; set; }
 
-    // Foreign Key to User
-    public int UserId { get; set; }
-    public User User { get; set; } = null!;
+    // Foreign Key to Identity User
+    public string UserId { get; set; } = string.Empty;
+    public ApplicationUser User { get; set; } = null!;
 
     // 1-to-Many: A family has many dishes
     public ICollection<Dish> Dishes { get; set; } = new List<Dish>();

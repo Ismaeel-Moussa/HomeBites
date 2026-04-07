@@ -1,4 +1,6 @@
 using BusinessLayer.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using BusinessLayer.Services;
 
@@ -43,6 +45,7 @@ public class FamiliesController : ControllerBase
     // PUT: api/families/{id}
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "FamilyOnly")]
     public async Task<IActionResult> UpdateFamilyProfile(int id, [FromForm] UpdateFamilyRequest request)
     {
         try
