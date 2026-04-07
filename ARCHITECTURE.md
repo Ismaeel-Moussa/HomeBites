@@ -1,68 +1,57 @@
 # Home Bites Project Architecture
 
 ## Change History
-
-| Date       | Version | Description                                                 | Author    |
-| :--------- | :------ | :---------------------------------------------------------- | :-------- |
-| 2026-03-30 | 1.0     | Initial architectural framework                             | Ali Anaam |
-| 2026-04-05 | 1.1     | Added Process Architecture, Size & Performance, and Quality | Ali Anaam |
+| Date | Version | Description | Author |
+| :--- | :--- | :--- | :--- |
+| 2026-03-30 | 1.0 | Initial architectural framework | Ali Anaam |
+| 2026-04-05 | 1.1 |  Added Process Architecture, Size & Performance, and Quality | Ali Anaam  |
 
 ## Table of Contents
-
 1. [Scope](#1-scope)
-2. [Software Architecture](#2-software-architecture)
-3. [Architectural Goals & Constraints](#3-architectural-goals--constraints)
-4. [Logical Architecture](#4-logical-architecture)
-5. [Process Architecture](#5-process-architecture)
-6. [Development Architecture](#6-development-architecture)
-7. [Physical Architecture](#7-physical-architecture)
-8. [Scenarios](#8-scenarios)
-9. [Size and Performance](#9-size-and-performance)
-10. [Quality](#10-quality)
-11. [Appendices](#appendices)
-12. [References](#references)
+2. [References](#2-references)
+3. [Software Architecture](#3-software-architecture)
+4. [Architectural Goals & Constraints](#4-architectural-goals--constraints)
+5. [Logical Architecture](#5-logical-architecture)
+6. [Process Architecture](#6-process-architecture)
+7. [Development Architecture](#7-development-architecture)
+8. [Physical Architecture](#8-physical-architecture)
+9. [Scenarios](#9-scenarios)
+10. [Size and Performance](#10-size-and-performance)
+11. [Quality](#11-quality)
+12. [Appendices](#appendices)
 
 ## List of Figures
-
-- [Figure 1: High-Level Logical Component Diagram](#figure-1)
-- [Figure 2: Order Process Sequence Diagram](#figure-2)
+* [Figure 1: High-Level Logical Component Diagram](#figure-1)
+* [Figure 2: Order Process Sequence Diagram](#figure-2)
 
 ---
 
 ## 1. Scope
+*Define what this document covers and the boundaries of the system.*
+* what will the system do and what will it not do 
 
-_Define what this document covers and the boundaries of the system._
+## 2. References
+* Kruchten’s 4+1 Model: Architectural framework used for this document. [4+1 architectural view model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model).
 
-- what will the system do and what will it not do
+## 3. Software Architecture
+*Provide a high-level overview of the system's structural design.*
+* make 1-2 diagrams for the system overview
 
-## 2. Software Architecture
+## 4. Architectural Goals & Constraints
+* **Goals:** (e.g., High availability, security, 30 users at the same time)
+* **Constraints:** (e.g., Must use AWS, legacy database compatibility)
 
-_Provide a high-level overview of the system's structural design._
-
-- make 1-2 diagrams for the system overview
-
-## 3. Architectural Goals & Constraints
-
-- **Goals:** (e.g., High availability, security, 30 users at the same time)
-- **Constraints:** (e.g., Must use AWS, legacy database compatibility)
-
-## 4. Logical Architecture
-
+## 5. Logical Architecture
 This section details the domain entities, their relationships, and the architectural layers of the Home Bites platform.
 
 <a name="figure-1"></a>
-
 ### Figure 1: High-Level Logical Component Diagram
-
 ![Home Bites Logical View Diagram](./Logical-View-UMLDigram.png)
 
-## 5. Process Architecture
-
+## 6. Process Architecture
 This part describes the system workflow and interactions between components during runtime.
 <a name="figure-2"></a>
-
 ### Figure 2: Order Process Sequence Diagram
-
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -77,87 +66,76 @@ sequenceDiagram
     D-->>B: Return data
     B-->>F: Return JSON response
     F-->>U: Display Dish Gallery
-
+    
     U->>F: Clicks "Order via WhatsApp"
     F->>F: Generate pre-filled message
     F->>W: Redirect to wa.me/number?text=...
     W-->>U: Open Chat with Order Details
-```
-
+  ```
 ### Process Explanation
-
-1. **Access:** The user opens the Home Bites platform.
-2. **Request:** The frontend sends a request to the backend API to retrieve available dishes.
-3. **Fetch:** The backend communicates with the database to fetch the required data.
-4. **Display:** The data is returned to the frontend and displayed to the user.
-5. **Selection:** The user selects a dish and clicks on "Order via WhatsApp".
-6. **Generation:** The system generates a pre-filled message containing dish details.
+1. **Access:** The user opens the Home Bites platform.  
+2. **Request:** The frontend sends a request to the backend API to retrieve available dishes.  
+3. **Fetch:** The backend communicates with the database to fetch the required data.  
+4. **Display:** The data is returned to the frontend and displayed to the user.  
+5. **Selection:** The user selects a dish and clicks on "Order via WhatsApp".  
+6. **Generation:** The system generates a pre-filled message containing dish details.  
 7. **Redirection:** The user is redirected to WhatsApp to complete the order externally.
 
-## 6. Development Architecture
+## 7. Development Architecture
 
 Details regarding the code structure, libraries, and development environment.
 
-### 6.1 Package Decomposition
-
+### 7.1 Package Decomposition
 The Home Bites system is organized into two main development environments to ensure a clear separation of concerns:
 
 - Frontend : A React.js application organized by functionality (Components, Services for API calls, and Assets).
 - Backend :An ASP.NET Core Web API structured using the Layered Architecture pattern, including Controllers, Models, and Data Access layers.
 
-### 6.2 Module Dependencies
-
+### 7.2 Module Dependencies
 - UI Framework:Tailwind CSS for rapid responsive design.
 - Data Access: Entity Framework Core (Code First) to manage database interactions.
 - Communication: Axios/Fetch for connecting React components to backend RESTful endpoints.
 - External Integration: WhatsApp Dynamic URI Linker to facilitate external order handling.
 
-### 6.3 Folder Structure
-
+### 7.3 Folder Structure
 HomeBites/
 ├── client/ (Frontend)
-│ ├── src/components/
-│ ├── src/services/ (WhatsApp logic)
+│   ├── src/components/
+│   ├── src/services/ (WhatsApp logic)
 ├── server/ (Backend)
-│ ├── Controllers/
-│ ├── Models/
-│ ├── Data/
+│   ├── Controllers/
+│   ├── Models/
+│   ├── Data/
 └── docs/ (Architecture Diagrams)
 
-## 7. Physical Architecture
+## 8. Physical Architecture
+*The infrastructure setup, including servers, networks, and deployment environments.(e.g., users laptop)*
 
-_The infrastructure setup, including servers, networks, and deployment environments.(e.g., users laptop)_
 
-## 8. Scenarios
+## 9. Scenarios
+*Key use cases that demonstrate how the architecture functions under specific conditions.*
+* stories, like when a customer browse for food
 
-_Key use cases that demonstrate how the architecture functions under specific conditions._
-
-- stories, like when a customer browse for food
-
-## 9. Size and Performance
-
+## 10. Size and Performance
 This system is designed for a small number of users, focusing on simplicity and efficiency.
 
 ### Data Size Estimation
-
-- **Families:** 50 – 100 records
-- **Dishes:** 200 – 500 records
-- **Categories:** 5 – 20 records
-- **Images:** Stored as external URLs (optimized for fast loading)
+* **Families:** 50 – 100 records  
+* **Dishes:** 200 – 500 records  
+* **Categories:** 5 – 20 records  
+* **Images:** Stored as external URLs (optimized for fast loading)  
 
 ### Performance Requirements
-
-- **API Response Time:** < 2 seconds
-- **Page Load Time:** < 3 seconds
-- **Concurrent Users:** Supports up to 30 users
+* **API Response Time:** < 2 seconds  
+* **Page Load Time:** < 3 seconds  
+* **Concurrent Users:** Supports up to 30 users  
 
 ### Optimization Techniques
+* Basic query optimization using **Entity Framework Core**.  
+* Simple pagination to limit data transfer.  
+* Use of asynchronous API calls to prevent blocking.  
 
-- Basic query optimization using **Entity Framework Core**.
-- Simple pagination to limit data transfer.
-- Use of asynchronous API calls to prevent blocking.
-
-## 10. Quality
+## 11. Quality
 
 ### Error Handling
 
@@ -166,32 +144,32 @@ The system uses simple error handling to ensure a smooth user experience for a s
 #### Frontend Error Handling
 
 - Display simple and clear messages:
-    - "Failed to load data"
-    - "Something went wrong"
-- Allow the user to retry the request
-- Basic input validation before sending requests
+  - "Failed to load data"
+  - "Something went wrong"
+- Allow the user to retry the request  
+- Basic input validation before sending requests  
 
 ---
 
 #### Backend Error Handling
 
-- Use try-catch blocks to handle errors
+- Use try-catch blocks to handle errors  
 - Return simple HTTP status codes:
 
-| Code | Description           |
-| ---- | --------------------- |
-| 200  | Success               |
-| 400  | Bad Request           |
-| 404  | Not Found             |
+| Code | Description |
+|------|------------|
+| 200  | Success |
+| 400  | Bad Request |
+| 404  | Not Found |
 | 500  | Internal Server Error |
 
 ---
 
 #### Common Error Scenarios
 
-- Server or database connection failure → 500 error
-- Requested dish not found → 404 error
-- Invalid user input → 400 error
+- Server or database connection failure → 500 error  
+- Requested dish not found → 404 error  
+- Invalid user input → 400 error  
 
 ---
 
@@ -205,9 +183,9 @@ Since the system redirects users to WhatsApp for order communication, it does no
 
 This design reduces security risks because:
 
-- No payment or financial data is processed within the system
-- No sensitive user information is stored in the database
-- Communication is handled through WhatsApp, which provides its own security mechanisms
+- No payment or financial data is processed within the system 
+- No sensitive user information is stored in the database  
+- Communication is handled through WhatsApp, which provides its own security mechanisms  
 
 Overall, the system minimizes security vulnerabilities by keeping transactions external and maintaining a simple data structure.
 
@@ -216,7 +194,6 @@ Overall, the system minimizes security vulnerabilities by keeping transactions e
 ## Appendices
 
 ### Design Principles & Architectural Patterns
-
 The Home Bites backend prioritizes maintainability and scalability through the following architectural patterns:
 
 Layered Architecture (Separation of Concerns)
@@ -261,7 +238,3 @@ SOLID: Five object-oriented design principles intended to make software flexible
 SPA (Single Page Application): A web app (React.js) that dynamically updates the current page without reloading, resulting in a faster user experience.
 
 UML: A standard modeling language used to visualize software architecture.
-
-## References
-
-- Kruchten’s 4+1 Model: Architectural framework used for this document. [4+1 architectural view model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model).
