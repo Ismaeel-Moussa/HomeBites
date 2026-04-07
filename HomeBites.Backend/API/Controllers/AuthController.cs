@@ -119,7 +119,7 @@ public class AuthController : ControllerBase
 
         var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Sub, user.Id),
+            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
             new("user_type", user.UserType.ToString())
         };

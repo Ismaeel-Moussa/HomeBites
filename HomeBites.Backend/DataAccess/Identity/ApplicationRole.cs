@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DataAccess.Identity;
 
-public class ApplicationRole : IdentityRole
+public class ApplicationRole : IdentityRole<int>
 {
 }
 

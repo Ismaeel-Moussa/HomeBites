@@ -14,7 +14,7 @@ public class Family
     public string? ProfileImageUrl { get; set; }
 
     // Foreign Key to Identity User
-    public string UserId { get; set; } = string.Empty;
+    public int UserId { get; set; }
     public ApplicationUser User { get; set; } = null!;
 
     // 1-to-Many: A family has many dishes

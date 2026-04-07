@@ -10,7 +10,7 @@ public enum UserType
     Admin = 3
 }
 
-public class ApplicationUser : IdentityUser
+public class ApplicationUser : IdentityUser<int>
 {
     public UserType UserType { get; set; } = UserType.Family;
 
