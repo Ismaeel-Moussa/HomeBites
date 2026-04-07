@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace API.DTOs;
+namespace BusinessLayer.DTOs;
 
 public class UpdateFamilyRequest
 {

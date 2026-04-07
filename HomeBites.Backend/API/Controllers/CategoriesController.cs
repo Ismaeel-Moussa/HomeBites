@@ -1,6 +1,5 @@
-using DataAccess;
+using BusinessLayer.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
@@ -8,23 +7,18 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class CategoriesController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly ICategoryService _categoryService;
 
-    public CategoriesController(AppDbContext context)
+    public CategoriesController(ICategoryService categoryService)
     {
-        _context = context;
+        _categoryService = categoryService;
     }
 
     // GET: api/categories
-    // Returns all categories for use in filter dropdowns
     [HttpGet]
     public async Task<IActionResult> GetCategories()
     {
-        var categories = await _context.Categories
-            .Select(c => new { c.Id, c.Name })
-            .OrderBy(c => c.Name)
-            .ToListAsync();
-
+        var categories = await _categoryService.GetCategoriesForDropdownAsync();
         return Ok(categories);
     }
 }

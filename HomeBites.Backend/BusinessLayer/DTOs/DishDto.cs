@@ -1,4 +1,4 @@
-namespace API.DTOs;
+namespace BusinessLayer.DTOs;
 
 public class DishDto
 {
