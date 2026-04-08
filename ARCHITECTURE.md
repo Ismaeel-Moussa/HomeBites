@@ -190,6 +190,8 @@ flowchart TD
 
 This section describes the "plus one" (+1) view of the architecture, representing key use cases that validate the design. These stories demonstrate how the Logical, Process, and Physical architectures work together to fulfill user needs.
 
+![Home Bites Use Cases Diagram](./Home%20Bites%20Use%20Case%20Diagram.png)
+
 ---
 
 ### 9.1 Scenario 1: Exploring Local Flavors (Browsing & Discovery)
