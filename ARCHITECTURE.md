@@ -27,6 +27,7 @@
 
 - [Figure 1: High-Level Logical Component Diagram](#figure-1)
 - [Figure 2: Order Process Sequence Diagram](#figure-2)
+- [Figure 3: Use Case Diagram](#figure-3)
 
 ---
 
@@ -190,6 +191,7 @@ flowchart TD
 
 This section describes the "plus one" (+1) view of the architecture, representing key use cases that validate the design. These stories demonstrate how the Logical, Process, and Physical architectures work together to fulfill user needs.
 
+<a name="figure-3"></a>
 ![Home Bites Use Cases Diagram](./HomeBitesUseCaseDiagram.png)
 
 ### 9.1 Scenario 1: Exploring Local Flavors (Browsing & Discovery)
