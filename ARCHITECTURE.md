@@ -188,9 +188,55 @@ flowchart TD
 
 ## 9. Scenarios
 
-_Key use cases that demonstrate how the architecture functions under specific conditions._
+This section describes the "plus one" (+1) view of the architecture, representing key use cases that validate the design. These stories demonstrate how the Logical, Process, and Physical architectures work together to fulfill user needs.
 
-- stories, like when a customer browse for food
+---
+
+### 9.1 Scenario 1: Exploring Local Flavors (Browsing & Discovery)
+
+**Actor:** Customer  
+**Goal:** To find and view available homemade food options nearby.
+
+- **The Story:** Sarah is looking for authentic traditional food for dinner. She opens the **Home Bites** web app on her smartphone.
+- **System Action:** The **React Frontend** sends an asynchronous `GET` request to the **ASP.NET Core API**.
+- **Architectural Interaction:** The API queries the **SQL Database** via Entity Framework Core to fetch the list of active family businesses and their featured dishes.
+- **Result:** Within 2 seconds, Sarah sees a visually rich gallery of dishes. She uses the **Category Filter** to select "Traditional," and the UI instantly updates to show relevant items like Kabsa and Mandi, pulling optimized image URLs from the cloud storage.
+
+---
+
+### 9.2 Scenario 2: Placing an Order (The WhatsApp Bridge)
+
+**Actor:** Customer  
+**Goal:** To initiate a purchase for a specific dish.
+
+- **The Story:** Sarah decides on a "Family Size Kunafa" from a local baker named "Aisha’s Sweets." She clicks the **"Order via WhatsApp"** button.
+- **System Action:** The **Frontend Service** captures the dish name ($Kunafa$), price ($50$ $SAR$), and the family’s registered WhatsApp number. It dynamically generates a URI-encoded link: `https://wa.me/966.../?text=Hello! I would like to order the Family Size Kunafa...`.
+- **Architectural Interaction:** Instead of processing a payment internally (which is Out-of-Scope), the architecture triggers a **External Service Redirect**.
+- **Result:** Sarah’s WhatsApp app opens automatically with a pre-filled message. She hits "Send," and the transaction continues as a direct conversation between her and the business owner.
+
+---
+
+### 9.3 Scenario 3: Finding a Specific Business (Search Functionality)
+
+**Actor:** Customer  
+**Goal:** To locate a specific family business they have heard about.
+
+- **The Story:** A friend told Ahmed about "Healthy Bites by Mariam." Ahmed types "Mariam" into the search bar on the Home Bites homepage.
+- **System Action:** The search triggers a request to the **Backend Controller**.
+- **Architectural Interaction:** The backend executes a filtered query against the **Family Profile** table in the database.
+- **Result:** The system returns Mariam’s profile page, displaying her bio, location, and her entire digital food catalog, allowing Ahmed to browse her specific offerings.
+
+---
+
+### 9.4 Scenario 4: Handling Service Disruptions (Error Handling)
+
+**Actor:** Customer / System
+**Goal:** To maintain a graceful user experience during a database timeout.
+
+- **The Story:** Due to a temporary network flicker, the API cannot reach the SQL Database while a user is loading the page.
+- **System Action:** The **Backend Error Handler** catches the exception and returns a `500 Internal Server Error` status code.
+- **Architectural Interaction:** The **React Frontend** receives the error code instead of the expected JSON.
+- **Result:** Instead of a broken page or a "white screen of death," the UI displays a user-friendly message: _"Failed to load data. Please check your connection and try again,"_ along with a **Retry** button, as defined in the Quality Attributes (Section 11).
 
 ## 10. Size and Performance
 
