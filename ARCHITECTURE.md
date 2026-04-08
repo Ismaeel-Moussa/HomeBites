@@ -108,7 +108,7 @@ sequenceDiagram
     W-->>U: Open Chat with Order Details
 ```
 
-### Process Explanation
+### 6.1 Process Explanation
 
 1. **Access:** The user opens the Home Bites platform.
 2. **Request:** The frontend sends a request to the backend API to retrieve available dishes.
@@ -192,6 +192,9 @@ flowchart TD
 This section describes the "plus one" (+1) view of the architecture, representing key use cases that validate the design. These stories demonstrate how the Logical, Process, and Physical architectures work together to fulfill user needs.
 
 <a name="figure-3"></a>
+
+### Figure 3: Use Case Diagram
+
 ![Home Bites Use Cases Diagram](./HomeBitesUseCaseDiagram.png)
 
 ### 9.1 Scenario 1: Exploring Local Flavors (Browsing & Discovery)
