@@ -1,13 +1,15 @@
 # Home Bites Project Architecture
 
 ## Change History
-| Date | Version | Description | Author |
-| :--- | :--- | :--- | :--- |
-| 2026-03-30 | 1.0 | Initial architectural framework | Ali Anaam |
-| 2026-04-05 | 1.1 |  Added Process Architecture, Size & Performance, and Quality | Ali Anaam  |
-| 2026-04-08 | 1.2 | Added Physical Architecture and Quality Attributes | Yousef Alreyashi |
+
+| Date       | Version | Description                                                 | Author           |
+| :--------- | :------ | :---------------------------------------------------------- | :--------------- |
+| 2026-03-30 | 1.0     | Initial architectural framework                             | Ali Anaam        |
+| 2026-04-05 | 1.1     | Added Process Architecture, Size & Performance, and Quality | Ali Anaam        |
+| 2026-04-08 | 1.2     | Added Physical Architecture and Quality Attributes          | Yousef Alreyashi |
 
 ## Table of Contents
+
 1. [Scope](#1-scope)
 2. [References](#2-references)
 3. [Software Architecture](#3-software-architecture)
@@ -22,37 +24,68 @@
 12. [Appendices](#appendices)
 
 ## List of Figures
-* [Figure 1: High-Level Logical Component Diagram](#figure-1)
-* [Figure 2: Order Process Sequence Diagram](#figure-2)
+
+- [Figure 1: High-Level Logical Component Diagram](#figure-1)
+- [Figure 2: Order Process Sequence Diagram](#figure-2)
 
 ---
 
 ## 1. Scope
-*Define what this document covers and the boundaries of the system.*
-* what will the system do and what will it not do 
+
+The primary objective of **Home Bites** is to bridge the gap between home-based culinary entrepreneurs and local customers through a streamlined digital storefront.
+
+### 1.1 In-Scope (What the System Will Do)
+
+The platform functions as a **discovery and cataloging engine**. It is designed to handle the following:
+
+- **Digital Presence for Families:** Provides a structured landing page for each business, including their story (bio), location, and contact details.
+- **Visual Product Catalog:** Supports the uploading and display of high-quality dish images, detailed descriptions, and transparent pricing.
+- **Discovery Tools:** A searchable database allowing customers to find specific dishes or families, complemented by category filters (e.g., Traditional, Desserts, Healthy).
+- **Communication Bridge:** A dedicated **"Order via WhatsApp"** integration that triggers a pre-filled message—including the dish name and price—to streamline the transition from browsing to buying.
+- **Cross-Platform Accessibility:** A responsive web design ensuring the catalog is easily navigable on both mobile devices and desktops.
+
+### 1.2 Out-of-Scope (Boundaries & Limitations)
+
+To maintain simplicity and reduce operational overhead for the families, the following features are **not** part of the Home Bites system:
+
+- **In-App Payment Processing:** The system will not handle credit card transactions or digital wallets. All financial exchanges occur externally between the customer and the family.
+- **Order Management System (OMS):** There is no internal dashboard to track order status (e.g., "Pending," "Cooking," "Delivered").
+- **Logistics and Delivery:** The platform does not provide delivery tracking or integration with third-party courier services.
+- **Direct Messaging:** There is no internal chat system; all communication is redirected to WhatsApp.
+- **Inventory Management:** The system will not automatically "hide" items when they are out of stock; manual updates by the family are required.
 
 ## 2. References
-* Kruchten’s 4+1 Model: Architectural framework used for this document. [4+1 architectural view model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model).
+
+- Kruchten’s 4+1 Model: Architectural framework used for this document. [4+1 architectural view model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model).
 
 ## 3. Software Architecture
-*Provide a high-level overview of the system's structural design.*
-* make 1-2 diagrams for the system overview
+
+_Provide a high-level overview of the system's structural design._
+
+- make 1-2 diagrams for the system overview
 
 ## 4. Architectural Goals & Constraints
-* **Goals:** (e.g., High availability, security, 30 users at the same time)
-* **Constraints:** (e.g., Must use AWS, legacy database compatibility)
+
+- **Goals:** (e.g., High availability, security, 30 users at the same time)
+- **Constraints:** (e.g., Must use AWS, legacy database compatibility)
 
 ## 5. Logical Architecture
+
 This section details the domain entities, their relationships, and the architectural layers of the Home Bites platform.
 
 <a name="figure-1"></a>
+
 ### Figure 1: High-Level Logical Component Diagram
+
 ![Home Bites Logical View Diagram](./Logical-View-UMLDigram.png)
 
 ## 6. Process Architecture
+
 This part describes the system workflow and interactions between components during runtime.
 <a name="figure-2"></a>
+
 ### Figure 2: Order Process Sequence Diagram
+
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -67,19 +100,21 @@ sequenceDiagram
     D-->>B: Return data
     B-->>F: Return JSON response
     F-->>U: Display Dish Gallery
-    
+
     U->>F: Clicks "Order via WhatsApp"
     F->>F: Generate pre-filled message
     F->>W: Redirect to wa.me/number?text=...
     W-->>U: Open Chat with Order Details
-  ```
+```
+
 ### Process Explanation
-1. **Access:** The user opens the Home Bites platform.  
-2. **Request:** The frontend sends a request to the backend API to retrieve available dishes.  
-3. **Fetch:** The backend communicates with the database to fetch the required data.  
-4. **Display:** The data is returned to the frontend and displayed to the user.  
-5. **Selection:** The user selects a dish and clicks on "Order via WhatsApp".  
-6. **Generation:** The system generates a pre-filled message containing dish details.  
+
+1. **Access:** The user opens the Home Bites platform.
+2. **Request:** The frontend sends a request to the backend API to retrieve available dishes.
+3. **Fetch:** The backend communicates with the database to fetch the required data.
+4. **Display:** The data is returned to the frontend and displayed to the user.
+5. **Selection:** The user selects a dish and clicks on "Order via WhatsApp".
+6. **Generation:** The system generates a pre-filled message containing dish details.
 7. **Redirection:** The user is redirected to WhatsApp to complete the order externally.
 
 ## 7. Development Architecture
@@ -87,32 +122,37 @@ sequenceDiagram
 Details regarding the code structure, libraries, and development environment.
 
 ### 7.1 Package Decomposition
+
 The Home Bites system is organized into two main development environments to ensure a clear separation of concerns:
 
 - Frontend : A React.js application organized by functionality (Components, Services for API calls, and Assets).
 - Backend :An ASP.NET Core Web API structured using the Layered Architecture pattern, including Controllers, Models, and Data Access layers.
 
 ### 7.2 Module Dependencies
+
 - UI Framework:Tailwind CSS for rapid responsive design.
 - Data Access: Entity Framework Core (Code First) to manage database interactions.
 - Communication: Axios/Fetch for connecting React components to backend RESTful endpoints.
 - External Integration: WhatsApp Dynamic URI Linker to facilitate external order handling.
 
 ### 7.3 Folder Structure
+
 HomeBites/
 ├── client/ (Frontend)
-│   ├── src/components/
-│   ├── src/services/ (WhatsApp logic)
+│ ├── src/components/
+│ ├── src/services/ (WhatsApp logic)
 ├── server/ (Backend)
-│   ├── Controllers/
-│   ├── Models/
-│   ├── Data/
+│ ├── Controllers/
+│ ├── Models/
+│ ├── Data/
 └── docs/ (Architecture Diagrams)
 
 ## 8. Physical Architecture
+
 This section defines the deployment architecture and physical nodes for the Home Bites platform.
 
 ### Deployment Diagram
+
 ```mermaid
 flowchart TD
     subgraph Client ["Client Devices (Mobile / PC)"]
@@ -137,6 +177,7 @@ flowchart TD
 ```
 
 ### System Nodes
+
 1. **Client Device (Frontend):** Runs the React.js Single Page Application (SPA) on modern web browsers.
 
 2. **Web Server (Backend):** Hosts the ASP.NET Core Web API to handle business logic.
@@ -146,36 +187,45 @@ flowchart TD
 4. **External Integrations:** WhatsApp API for external order delegation.
 
 ## 9. Scenarios
-*Key use cases that demonstrate how the architecture functions under specific conditions.*
-* stories, like when a customer browse for food
+
+_Key use cases that demonstrate how the architecture functions under specific conditions._
+
+- stories, like when a customer browse for food
 
 ## 10. Size and Performance
+
 This system is designed for a small number of users, focusing on simplicity and efficiency.
 
 ### Data Size Estimation
-* **Families:** 50 – 100 records  
-* **Dishes:** 200 – 500 records  
-* **Categories:** 5 – 20 records  
-* **Images:** Stored as external URLs (optimized for fast loading)  
+
+- **Families:** 50 – 100 records
+- **Dishes:** 200 – 500 records
+- **Categories:** 5 – 20 records
+- **Images:** Stored as external URLs (optimized for fast loading)
 
 ### Performance Requirements
-* **API Response Time:** < 2 seconds  
-* **Page Load Time:** < 3 seconds  
-* **Concurrent Users:** Supports up to 30 users  
+
+- **API Response Time:** < 2 seconds
+- **Page Load Time:** < 3 seconds
+- **Concurrent Users:** Supports up to 30 users
 
 ### Optimization Techniques
-* Basic query optimization using **Entity Framework Core**.  
-* Simple pagination to limit data transfer.  
-* Use of asynchronous API calls to prevent blocking.  
+
+- Basic query optimization using **Entity Framework Core**.
+- Simple pagination to limit data transfer.
+- Use of asynchronous API calls to prevent blocking.
 
 ## 11. Quality
+
 ### Quality Attributes
+
 - **Usability:** The system applies the KISS (Keep It Simple, Stupid) principle. Customers can browse the catalog and reach the WhatsApp order button quickly without complex navigation.
 - **Responsiveness:** The UI is built using Tailwind CSS, ensuring it is fully optimized and accessible for both mobile and desktop users.
 - **Performance:** The ASP.NET Core backend uses the Repository Pattern with Entity Framework Core to make database queries fast and efficient.
 - **Reliability:** By delegating the ordering process to the WhatsApp API, the system minimizes internal transaction failures.
 
 ### Testing Strategy
+
 - **UI/UX Testing:** Manual testing across different screen sizes.
 - **Integration Testing:** Verifying dynamic WhatsApp URI generation.
 - **API Testing:** Validating ASP.NET Core endpoints for correct JSON responses.
@@ -187,32 +237,32 @@ The system uses simple error handling to ensure a smooth user experience for a s
 #### Frontend Error Handling
 
 - Display simple and clear messages:
-  - "Failed to load data"
-  - "Something went wrong"
-- Allow the user to retry the request  
-- Basic input validation before sending requests  
+    - "Failed to load data"
+    - "Something went wrong"
+- Allow the user to retry the request
+- Basic input validation before sending requests
 
 ---
 
 #### Backend Error Handling
 
-- Use try-catch blocks to handle errors  
+- Use try-catch blocks to handle errors
 - Return simple HTTP status codes:
 
-| Code | Description |
-|------|------------|
-| 200  | Success |
-| 400  | Bad Request |
-| 404  | Not Found |
+| Code | Description           |
+| ---- | --------------------- |
+| 200  | Success               |
+| 400  | Bad Request           |
+| 404  | Not Found             |
 | 500  | Internal Server Error |
 
 ---
 
 #### Common Error Scenarios
 
-- Server or database connection failure → 500 error  
-- Requested dish not found → 404 error  
-- Invalid user input → 400 error  
+- Server or database connection failure → 500 error
+- Requested dish not found → 404 error
+- Invalid user input → 400 error
 
 ---
 
@@ -226,9 +276,9 @@ Since the system redirects users to WhatsApp for order communication, it does no
 
 This design reduces security risks because:
 
-- No payment or financial data is processed within the system 
-- No sensitive user information is stored in the database  
-- Communication is handled through WhatsApp, which provides its own security mechanisms  
+- No payment or financial data is processed within the system
+- No sensitive user information is stored in the database
+- Communication is handled through WhatsApp, which provides its own security mechanisms
 
 Overall, the system minimizes security vulnerabilities by keeping transactions external and maintaining a simple data structure.
 
@@ -237,6 +287,7 @@ Overall, the system minimizes security vulnerabilities by keeping transactions e
 ## Appendices
 
 ### Design Principles & Architectural Patterns
+
 The Home Bites backend prioritizes maintainability and scalability through the following architectural patterns:
 
 Layered Architecture (Separation of Concerns)
