@@ -5,6 +5,7 @@
 | :--- | :--- | :--- | :--- |
 | 2026-03-30 | 1.0 | Initial architectural framework | Ali Anaam |
 | 2026-04-05 | 1.1 |  Added Process Architecture, Size & Performance, and Quality | Ali Anaam  |
+| 2026-04-08 | 1.2 | Added Physical Architecture and Quality Attributes | Yousef Alreyashi |
 
 ## Table of Contents
 1. [Scope](#1-scope)
@@ -109,8 +110,40 @@ HomeBites/
 └── docs/ (Architecture Diagrams)
 
 ## 8. Physical Architecture
-*The infrastructure setup, including servers, networks, and deployment environments.(e.g., users laptop)*
+This section defines the deployment architecture and physical nodes for the Home Bites platform.
 
+### Deployment Diagram
+```mermaid
+flowchart TD
+    subgraph Client ["Client Devices (Mobile / PC)"]
+        UI["React.js SPA (Frontend)"]
+    end
+
+    subgraph Server ["Web Server"]
+        API["ASP.NET Core Web API (Backend)"]
+    end
+
+    subgraph Database ["Database Server"]
+        DB[("SQL Server")]
+    end
+
+    subgraph External ["External Services"]
+        WA["WhatsApp API"]
+    end
+
+    UI -- "HTTPS (REST API)" --> API
+    API -- "Entity Framework Core" --> DB
+    UI -- "Order Redirect" --> WA
+```
+
+### System Nodes
+1. **Client Device (Frontend):** Runs the React.js Single Page Application (SPA) on modern web browsers.
+
+2. **Web Server (Backend):** Hosts the ASP.NET Core Web API to handle business logic.
+
+3. **Database Server (Data Tier):** SQL Server managed via Entity Framework Core to store relational data.
+
+4. **External Integrations:** WhatsApp API for external order delegation.
 
 ## 9. Scenarios
 *Key use cases that demonstrate how the architecture functions under specific conditions.*
@@ -136,6 +169,16 @@ This system is designed for a small number of users, focusing on simplicity and 
 * Use of asynchronous API calls to prevent blocking.  
 
 ## 11. Quality
+### Quality Attributes
+- **Usability:** The system applies the KISS (Keep It Simple, Stupid) principle. Customers can browse the catalog and reach the WhatsApp order button quickly without complex navigation.
+- **Responsiveness:** The UI is built using Tailwind CSS, ensuring it is fully optimized and accessible for both mobile and desktop users.
+- **Performance:** The ASP.NET Core backend uses the Repository Pattern with Entity Framework Core to make database queries fast and efficient.
+- **Reliability:** By delegating the ordering process to the WhatsApp API, the system minimizes internal transaction failures.
+
+### Testing Strategy
+- **UI/UX Testing:** Manual testing across different screen sizes.
+- **Integration Testing:** Verifying dynamic WhatsApp URI generation.
+- **API Testing:** Validating ASP.NET Core endpoints for correct JSON responses.
 
 ### Error Handling
 
