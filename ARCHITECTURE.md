@@ -138,14 +138,15 @@ The Home Bites system is organized into two main development environments to ens
 
 ### 7.3 Folder Structure
 
+```text
 HomeBites/
 ├── client/ (Frontend)
-│ ├── src/components/
-│ ├── src/services/ (WhatsApp logic)
+│   ├── src/components/
+│   ├── src/services/ (WhatsApp logic)
 ├── server/ (Backend)
-│ ├── Controllers/
-│ ├── Models/
-│ ├── Data/
+│   ├── Controllers/
+│   ├── Models/
+│   ├── Data/
 └── docs/ (Architecture Diagrams)
 
 ## 8. Physical Architecture
