@@ -148,7 +148,7 @@ HomeBites/
 │   ├── Models/
 │   ├── Data/
 └── docs/ (Architecture Diagrams)
-
+```
 ## 8. Physical Architecture
 
 This section defines the deployment architecture and physical nodes for the Home Bites platform.
