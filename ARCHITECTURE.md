@@ -178,7 +178,7 @@ flowchart TD
     UI -- "Order Redirect" --> WA
 ```
 
-### System Nodes
+### 8.1 System Nodes
 
 1. **Client Device (Frontend):** Runs the React.js Single Page Application (SPA) on modern web browsers.
 
@@ -248,20 +248,20 @@ This section describes the "plus one" (+1) view of the architecture, representin
 
 This system is designed for a small number of users, focusing on simplicity and efficiency.
 
-### Data Size Estimation
+### 10.1 Data Size Estimation
 
 - **Families:** 50 – 100 records
 - **Dishes:** 200 – 500 records
 - **Categories:** 5 – 20 records
 - **Images:** Stored as external URLs (optimized for fast loading)
 
-### Performance Requirements
+### 10.2 Performance Requirements
 
 - **API Response Time:** < 2 seconds
 - **Page Load Time:** < 3 seconds
 - **Concurrent Users:** Supports up to 30 users
 
-### Optimization Techniques
+### 10.3 Optimization Techniques
 
 - Basic query optimization using **Entity Framework Core**.
 - Simple pagination to limit data transfer.
@@ -269,24 +269,24 @@ This system is designed for a small number of users, focusing on simplicity and 
 
 ## 11. Quality
 
-### Quality Attributes
+### 11.1 Quality Attributes
 
 - **Usability:** The system applies the KISS (Keep It Simple, Stupid) principle. Customers can browse the catalog and reach the WhatsApp order button quickly without complex navigation.
 - **Responsiveness:** The UI is built using Tailwind CSS, ensuring it is fully optimized and accessible for both mobile and desktop users.
 - **Performance:** The ASP.NET Core backend uses the Repository Pattern with Entity Framework Core to make database queries fast and efficient.
 - **Reliability:** By delegating the ordering process to the WhatsApp API, the system minimizes internal transaction failures.
 
-### Testing Strategy
+### 11.2 Testing Strategy
 
 - **UI/UX Testing:** Manual testing across different screen sizes.
 - **Integration Testing:** Verifying dynamic WhatsApp URI generation.
 - **API Testing:** Validating ASP.NET Core endpoints for correct JSON responses.
 
-### Error Handling
+### 11.3 Error Handling
 
 The system uses simple error handling to ensure a smooth user experience for a small number of users.
 
-#### Frontend Error Handling
+#### 11.3.1 Frontend Error Handling
 
 - Display simple and clear messages:
     - "Failed to load data"
@@ -296,7 +296,7 @@ The system uses simple error handling to ensure a smooth user experience for a s
 
 ---
 
-#### Backend Error Handling
+#### 11.3.2 Backend Error Handling
 
 - Use try-catch blocks to handle errors
 - Return simple HTTP status codes:
@@ -310,7 +310,7 @@ The system uses simple error handling to ensure a smooth user experience for a s
 
 ---
 
-#### Common Error Scenarios
+#### 11.3.3 Common Error Scenarios
 
 - Server or database connection failure → 500 error
 - Requested dish not found → 404 error
@@ -318,11 +318,11 @@ The system uses simple error handling to ensure a smooth user experience for a s
 
 ---
 
-#### Logging
+#### 11.3.4 Logging
 
 - Basic error logging for debugging purposes
 
-### Security Considerations
+### 11.4 Security Considerations
 
 Since the system redirects users to WhatsApp for order communication, it does not handle or store sensitive data such as payment information.
 
