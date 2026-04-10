@@ -30,7 +30,7 @@
 - [Figure 3: Order Process Sequence Diagram](#figure-3)
 - [Figure 4: Development View Diagram](#figure-4)
 - [Figure 5: Deployment Diagram](#figure-5)
-- [Figure 6: Use Case Diagram](#figure-5)
+- [Figure 6: Use Case Diagram](#figure-6)
 
 ---
 
