@@ -25,11 +25,12 @@
 
 ## List of Figures
 
-- [Figure 1: High-Level Logical Component Diagram](#figure-1)
-- [Figure 2: Order Process Sequence Diagram](#figure-2)
-- [Figure 3: Use Case Diagram](#figure-3)
+- [Figure 1: Software Architecture Diagram](#figure-1)
+- [Figure 2: High-Level Logical Component Diagram](#figure-2)
+- [Figure 3: Order Process Sequence Diagram](#figure-3)
 - [Figure 4: Development View Diagram](#figure-4)
-- [Figure 5: Software Architecture Diagram](#figure-5)
+- [Figure 5: Deployment Diagram](#figure-5)
+- [Figure 6: Use Case Diagram](#figure-5)
 
 ---
 
@@ -63,9 +64,9 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 
 ## 3. Software Architecture
 
-<a name="figure-5"></a>
+<a name="figure-1"></a>
 
-### Figure 5: Software Architecture Diagram
+### Figure 1: Software Architecture Diagram
 
 ![Software Architecture Diagram](./Software-Architecture.jpg)
 
@@ -91,18 +92,19 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 
 This section details the domain entities, their relationships, and the architectural layers of the Home Bites platform.
 
-<a name="figure-1"></a>
+<a name="figure-2"></a>
 
-### Figure 1: High-Level Logical Component Diagram
+### Figure 2: High-Level Logical Component Diagram
 
 ![Home Bites Logical View Diagram](./Logical-View-UMLDigram.png)
 
 ## 6. Process Architecture
 
 This part describes the system workflow and interactions between components during runtime.
-<a name="figure-2"></a>
 
-### Figure 2: Order Process Sequence Diagram
+<a name="figure-3"></a>
+
+### Figure 3: Order Process Sequence Diagram
 
 ```mermaid
 sequenceDiagram
@@ -177,7 +179,9 @@ HomeBites/
 
 This section defines the deployment architecture and physical nodes for the Home Bites platform.
 
-### Deployment Diagram
+<a name="figure-5"></a> 
+
+### Figure 5: Deployment Diagram
 
 ```mermaid
 flowchart TD
@@ -216,9 +220,9 @@ flowchart TD
 
 This section describes the "plus one" (+1) view of the architecture, representing key use cases that validate the design. These stories demonstrate how the Logical, Process, and Physical architectures work together to fulfill user needs.
 
-<a name="figure-3"></a>
+<a name="figure-6"></a>
 
-### Figure 3: Use Case Diagram
+### Figure 6: Use Case Diagram
 
 ![Home Bites Use Cases Diagram](./HomeBitesUseCaseDiagram.png)
 
