@@ -64,13 +64,28 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 ## 3. Software Architecture
 
 <a name="figure-5"></a>
+
 ### Figure 5: Software Architecture Diagram
+
 ![Software Architecture Diagram](./Software-Architecture.jpg)
 
 ## 4. Architectural Goals & Constraints
 
-- **Goals:** (e.g., High availability, security, 30 users at the same time)
-- **Constraints:** (e.g., Must use AWS, legacy database compatibility)
+### 4.1 Architectural Goals
+
+- Usability & Accessibility: The system must be intuitive for users with varying technical skills (both customers and families) and fully responsive on mobile devices.
+- Reliability: The transition from the catalog to WhatsApp must be seamless and 100% functional to ensure no orders are lost.
+- Performance: The application should handle up to 30 concurrent users with an API response time of less than 2 seconds.
+- Maintainability: The use of Layered Architecture and Repository Pattern ensures that adding new features (like a payment gateway later) is straightforward.
+
+### 4.2 Architectural Constraints
+
+- Technology Stack: The backend must be built using ASP.NET Core 8.0 and the frontend using React.js, as per project requirements.
+- External Integration: Ordering must be delegated to the WhatsApp API rather than an internal messaging system.
+- Data Persistence: Must use SQL Server with Entity Framework Core for data management.
+- No Internal Payments: The architecture must stay within the "discovery-only" scope, meaning no sensitive financial data is stored or processed.
+
+*
 
 ## 5. Logical Architecture
 
@@ -124,11 +139,12 @@ sequenceDiagram
 
 Details regarding the code structure, libraries, and development environment.
 
-
 ### 7.1 Package Decomposition
 
 <a name="figure-4"></a>
+
 ### Figure 4: Development View Diagram
+
 ![Development View Diagram](./development-view.png)
 
 The Home Bites system is organized into two main development environments to ensure a clear separation of concerns:
@@ -156,6 +172,7 @@ HomeBites/
 │   ├── Data/
 └── docs/ (Architecture Diagrams)
 ```
+
 ## 8. Physical Architecture
 
 This section defines the deployment architecture and physical nodes for the Home Bites platform.
