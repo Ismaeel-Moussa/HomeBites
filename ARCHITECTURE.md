@@ -1,13 +1,4 @@
 # Home Bites Project Architecture
-
-## Change History
-
-| Date       | Version | Description                                                 | Author           |
-| :--------- | :------ | :---------------------------------------------------------- | :--------------- |
-| 2026-03-30 | 1.0     | Initial architectural framework                             | Ali Anaam        |
-| 2026-04-05 | 1.1     | Added Process Architecture, Size & Performance, and Quality | Ali Anaam        |
-| 2026-04-08 | 1.2     | Added Physical Architecture and Quality Attributes          | Yousef Alreyashi |
-
 ## Table of Contents
 
 1. [Scope](#1-scope)
@@ -108,26 +99,8 @@ This part describes the system workflow and interactions between components duri
 
 ### Figure 3: Order Process Sequence Diagram
 
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant F as Frontend (React)
-    participant B as Backend API (.NET)
-    participant D as Database (SQL)
-    participant W as WhatsApp
+![Order Process Sequence Diagram](./OrderProcessSequenceDiagram.jpg)
 
-    U->>F: Opens Home Bites
-    F->>B: GET /api/dishes
-    B->>D: Query available dishes
-    D-->>B: Return data
-    B-->>F: Return JSON response
-    F-->>U: Display Dish Gallery
-
-    U->>F: Clicks "Order via WhatsApp"
-    F->>F: Generate pre-filled message
-    F->>W: Redirect to wa.me/number?text=...
-    W-->>U: Open Chat with Order Details
-```
 
 ### 6.1 Process Explanation
 
@@ -185,28 +158,8 @@ This section defines the deployment architecture and physical nodes for the Home
 
 ### Figure 5: Deployment Diagram
 
-```mermaid
-flowchart TD
-    subgraph Client ["Client Devices (Mobile / PC)"]
-        UI["React.js SPA (Frontend)"]
-    end
+![Deployment Diagram](./development-view.png)
 
-    subgraph Server ["Web Server"]
-        API["ASP.NET Core Web API (Backend)"]
-    end
-
-    subgraph Database ["Database Server"]
-        DB[("SQL Server")]
-    end
-
-    subgraph External ["External Services"]
-        WA["WhatsApp API"]
-    end
-
-    UI -- "HTTPS (REST API)" --> API
-    API -- "Entity Framework Core" --> DB
-    UI -- "Order Redirect" --> WA
-```
 
 ### 8.1 System Nodes
 
