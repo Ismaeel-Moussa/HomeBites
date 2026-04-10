@@ -65,7 +65,7 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 
 <a name="figure-5"></a>
 ### Figure 5: Software Architecture Diagram
-![Software Architecture Diagram](.Software Architecture.jpg)
+![Software Architecture Diagram](./Software-Architecture.jpg)
 
 ## 4. Architectural Goals & Constraints
 
