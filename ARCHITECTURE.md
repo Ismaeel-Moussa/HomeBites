@@ -122,7 +122,10 @@ sequenceDiagram
 
 Details regarding the code structure, libraries, and development environment.
 
+
 ### 7.1 Package Decomposition
+
+![Development View Diagram](./development-view.png)
 
 The Home Bites system is organized into two main development environments to ensure a clear separation of concerns:
 
