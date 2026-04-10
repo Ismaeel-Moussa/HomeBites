@@ -28,6 +28,8 @@
 - [Figure 1: High-Level Logical Component Diagram](#figure-1)
 - [Figure 2: Order Process Sequence Diagram](#figure-2)
 - [Figure 3: Use Case Diagram](#figure-3)
+- [Figure 4: Development View Diagram](#figure-4)
+- [Figure 5: Software Architecture Diagram](#figure-5)
 
 ---
 
@@ -61,9 +63,8 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 
 ## 3. Software Architecture
 
-_Provide a high-level overview of the system's structural design._
-
-- make 1-2 diagrams for the system overview
+<a name="figure-5"></a>
+![Software Architecture Diagram](.Software Architecture.jpg)
 
 ## 4. Architectural Goals & Constraints
 
@@ -125,6 +126,8 @@ Details regarding the code structure, libraries, and development environment.
 
 ### 7.1 Package Decomposition
 
+<a name="figure-4"></a>
+### Figure 4: Development View Diagram
 ![Development View Diagram](./development-view.png)
 
 The Home Bites system is organized into two main development environments to ensure a clear separation of concerns:
