@@ -80,7 +80,7 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 
 ### 4.2 Architectural Constraints
 
-- Technology Stack: The backend must be built using ASP.NET Core 8.0 and the frontend using React.js, as per project requirements.
+- Technology Stack: The backend must be built using ASP.NET Core 10.0 and the frontend using React.js, as per project requirements.
 - External Integration: Ordering must be delegated to the WhatsApp API rather than an internal messaging system.
 - Data Persistence: Must use SQL Server with Entity Framework Core for data management.
 - No Internal Payments: The architecture must stay within the "discovery-only" scope, meaning no sensitive financial data is stored or processed.
