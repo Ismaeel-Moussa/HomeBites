@@ -62,6 +62,8 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 
 - Kruchten’s 4+1 Model: Architectural framework used for this document. [4+1 architectural view model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model).
 
+- Creately. *Online Diagramming Tool*. https://creately.com 
+
 ## 3. Software Architecture
 
 <a name="figure-1"></a>
