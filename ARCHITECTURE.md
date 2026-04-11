@@ -61,7 +61,7 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 
 ### Figure 1: Software Architecture Diagram
 
-![Software Architecture Diagram](./Software-Architecture.jpg)
+![Software Architecture Diagram](images/Software-Architecture.jpg)
 
 ## 4. Architectural Goals & Constraints
 
@@ -89,7 +89,7 @@ This section details the domain entities, their relationships, and the architect
 
 ### Figure 2: High-Level Logical Component Diagram
 
-![Home Bites Logical View Diagram](./Logical-View-UMLDigram.png)
+![Home Bites Logical View Diagram](images/Logical-View-UMLDigram.png)
 
 ## 6. Process Architecture
 
@@ -99,7 +99,7 @@ This part describes the system workflow and interactions between components duri
 
 ### Figure 3: Order Process Sequence Diagram
 
-![Order Process Sequence Diagram](./OrderProcessSequenceDiagram.jpg)
+![Order Process Sequence Diagram](images/OrderProcessSequenceDiagram.jpg)
 
 
 ### 6.1 Process Explanation
@@ -122,7 +122,7 @@ Details regarding the code structure, libraries, and development environment.
 
 ### Figure 4: Development View Diagram
 
-![Development View Diagram](./development-view.png)
+![Development View Diagram](images/development-view.png)
 
 The Home Bites system is organized into two main development environments to ensure a clear separation of concerns:
 
@@ -158,7 +158,7 @@ This section defines the deployment architecture and physical nodes for the Home
 
 ### Figure 5: Deployment Diagram
 
-![Deployment Diagram](./development-view.png)
+![Deployment Diagram](images/Deployment%20Diagram.jpg)
 
 
 ### 8.1 System Nodes
@@ -179,7 +179,7 @@ This section describes the "plus one" (+1) view of the architecture, representin
 
 ### Figure 6: Use Case Diagram
 
-![Home Bites Use Cases Diagram](./HomeBitesUseCaseDiagram.png)
+![Home Bites Use Cases Diagram](images/HomeBitesUseCaseDiagram.png)
 
 ### 9.1 Scenario 1: Exploring Local Flavors (Browsing & Discovery)
 
