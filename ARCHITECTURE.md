@@ -1,4 +1,5 @@
 # Home Bites Project Architecture
+
 ## Table of Contents
 
 1. [Scope](#1-scope)
@@ -53,7 +54,7 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 
 - Kruchten’s 4+1 Model: Architectural framework used for this document. [4+1 architectural view model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model).
 
-- Creately. *Online Diagramming Tool*. https://creately.com 
+- Creately. _Online Diagramming Tool_. https://creately.com
 
 ## 3. Software Architecture
 
@@ -61,7 +62,7 @@ To maintain simplicity and reduce operational overhead for the families, the fol
 
 ### Figure 1: Software Architecture Diagram
 
-![Software Architecture Diagram](images/Software-Architecture.jpg)
+![Software Architecture Diagram](Diagrams/Software-Architecture.jpg)
 
 ## 4. Architectural Goals & Constraints
 
@@ -89,7 +90,7 @@ This section details the domain entities, their relationships, and the architect
 
 ### Figure 2: High-Level Logical Component Diagram
 
-![Home Bites Logical View Diagram](images/Logical-View-UMLDigram.png)
+![Home Bites Logical View Diagram](Diagrams/Logical-View-UMLDigram.png)
 
 ## 6. Process Architecture
 
@@ -99,8 +100,7 @@ This part describes the system workflow and interactions between components duri
 
 ### Figure 3: Order Process Sequence Diagram
 
-![Order Process Sequence Diagram](images/OrderProcessSequenceDiagram.jpg)
-
+![Order Process Sequence Diagram](Diagrams/OrderProcessSequenceDiagram.jpg)
 
 ### 6.1 Process Explanation
 
@@ -122,7 +122,7 @@ Details regarding the code structure, libraries, and development environment.
 
 ### Figure 4: Development View Diagram
 
-![Development View Diagram](images/development-view.png)
+![Development View Diagram](Diagrams/development-view.png)
 
 The Home Bites system is organized into two main development environments to ensure a clear separation of concerns:
 
@@ -154,12 +154,11 @@ HomeBites/
 
 This section defines the deployment architecture and physical nodes for the Home Bites platform.
 
-<a name="figure-5"></a> 
+<a name="figure-5"></a>
 
 ### Figure 5: Deployment Diagram
 
-![Deployment Diagram](images/Deployment%20Diagram.jpg)
-
+![Deployment Diagram](Diagrams/Deployment%20Diagram.jpg)
 
 ### 8.1 System Nodes
 
@@ -179,7 +178,7 @@ This section describes the "plus one" (+1) view of the architecture, representin
 
 ### Figure 6: Use Case Diagram
 
-![Home Bites Use Cases Diagram](images/HomeBitesUseCaseDiagram.png)
+![Home Bites Use Cases Diagram](Diagrams/HomeBitesUseCaseDiagram.png)
 
 ### 9.1 Scenario 1: Exploring Local Flavors (Browsing & Discovery)
 
