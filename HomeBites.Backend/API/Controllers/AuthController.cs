@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using API.DTOs;
+using BusinessLayer.Services;
 using DataAccess;
 using DataAccess.Entities;
 using DataAccess.Identity;
@@ -21,21 +22,25 @@ public class AuthController : ControllerBase
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly AppDbContext _dbContext;
     private readonly IConfiguration _configuration;
+    private readonly PhotoService _photoService;
 
     public AuthController(
         UserManager<ApplicationUser> userManager,
         RoleManager<ApplicationRole> roleManager,
         AppDbContext dbContext,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        PhotoService photoService)
     {
         _userManager = userManager;
         _roleManager = roleManager;
         _dbContext = dbContext;
         _configuration = configuration;
+        _photoService = photoService;
     }
 
     [HttpPost("register-family")]
-    public async Task<IActionResult> RegisterFamily(RegisterFamilyRequest request)
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> RegisterFamily([FromForm] RegisterFamilyRequest request)
     {
         var existingUser = await _userManager.FindByEmailAsync(request.Email);
         if (existingUser != null)
@@ -65,6 +70,13 @@ public class AuthController : ControllerBase
         }
         await _userManager.AddToRoleAsync(user, familyRoleName);
 
+        // Handle photo upload
+        string? profileImageUrl = null;
+        if (request.ProfileImage != null && request.ProfileImage.Length > 0)
+        {
+            profileImageUrl = await _photoService.SavePhotoAsync(request.ProfileImage, "profiles");
+        }
+
         // Create family profile
         var family = new Family
         {
@@ -73,7 +85,7 @@ public class AuthController : ControllerBase
             WhatsAppNumber = request.WhatsAppNumber,
             Location = request.Location,
             Bio = request.Bio,
-            ProfileImageUrl = request.ProfileImageUrl
+            ProfileImageUrl = profileImageUrl
         };
 
         _dbContext.Families.Add(family);

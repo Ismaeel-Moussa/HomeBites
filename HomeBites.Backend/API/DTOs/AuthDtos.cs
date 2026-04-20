@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace API.DTOs;
 
 public class RegisterFamilyRequest
@@ -8,7 +10,7 @@ public class RegisterFamilyRequest
     public string WhatsAppNumber { get; set; } = string.Empty;
     public string? Location { get; set; }
     public string? Bio { get; set; }
-    public string? ProfileImageUrl { get; set; }
+    public IFormFile? ProfileImage { get; set; }
 }
 
 public class LoginRequest
