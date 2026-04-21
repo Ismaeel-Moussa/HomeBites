@@ -52,7 +52,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return isAuthenticated() ? <>{children}</> : <Navigate to="/login" replace />
 }
 
-// ─── App ───────────────────────────────────────────────────────────────────
 
 function App() {
   return (
