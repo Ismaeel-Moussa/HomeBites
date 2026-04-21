@@ -10,15 +10,16 @@ This plan outlines the development roadmap for the HomeBites digital catalog pla
 
 ## Proposed Changes
 
-### 1. Account & Authentication
+### 1. Account, Auth & System Design
 **Assigned to: Ismaeel Moussa**
 
-- Build Login and Sign-Up pages using Ant Design `Form` components.
-- Integrate with `AuthController` for JWT authentication.
-- Implement secure storage for the token (LocalStorage or HttpOnly Cookies as per backend config).
-- Create a `UserContext` or similar to handle global auth state.
+- **Account**: Build Login and Sign-Up pages using Ant Design `Form` components.
+- **Auth**: Integrate with `AuthController` for JWT authentication and state management.
+- **System Design**: Establish the global SCSS theme and shared UI layouts (Header/Footer/Sidebar).
+- **UI Foundation**: Configure Ant Design's `ConfigProvider` for a consistent look.
 
 #### [MODIFY] [App.tsx](file:///c:/Users/ismail/Documents/Programming/HomeBites/HomeBites.Frontend/src/App.tsx)
+#### [MODIFY] [index.scss](file:///c:/Users/ismail/Documents/Programming/HomeBites/HomeBites.Frontend/src/index.scss)
 #### [NEW] [Login.tsx](file:///c:/Users/ismail/Documents/Programming/HomeBites/HomeBites.Frontend/src/pages/Login.tsx)
 #### [NEW] [SignUp.tsx](file:///c:/Users/ismail/Documents/Programming/HomeBites/HomeBites.Frontend/src/pages/SignUp.tsx)
 
@@ -62,23 +63,21 @@ This plan outlines the development roadmap for the HomeBites digital catalog pla
 
 ---
 
-### 5. Profile Management & Design System
+### 5. Profile Management (Cook Dashboard)
 **Assigned to: Yousef Alreyashi**
 
 - Build the "Edit Profile" section in the Cook Dashboard.
 - Allow families to update their story, location, and coverage area.
-- Establish the global SCSS theme and shared UI layouts (Header/Footer/Sidebar).
-- Ensure consistent styling across all pages using Ant Design's `ConfigProvider`.
+- Ensure integration with the backend `FamiliesController` for profile updates.
 
 #### [NEW] [ProfileManagement.tsx](file:///c:/Users/ismail/Documents/Programming/HomeBites/HomeBites.Frontend/src/pages/dashboard/ProfileManagement.tsx)
-#### [MODIFY] [index.scss](file:///c:/Users/ismail/Documents/Programming/HomeBites/HomeBites.Frontend/src/index.scss)
 
 ## Verification Plan
 
 ### Automated Tests
-- Build verification: `npm run build` in the frontend.
+- Build verification: `npm run build` in the frontend area.
 - API Connectivity: Verify that `FamiliesController` returns data when called from the profile page.
 
 ### Manual Verification
 - Test User Flow: Sign up as a family -> Add a dish -> View dish on Home Page -> Click "Order via WhatsApp".
-- Responsive Design: Test pages on mobile and desktop views.
+- Responsive Design: Test pages on mobile and desktop views using the browser.
