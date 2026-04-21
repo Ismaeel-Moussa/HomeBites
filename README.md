@@ -19,9 +19,6 @@
 
 ---
 
-
----
-
 ##  Project Introduction
 
 Home Bites is a digital catalog platform designed to support home-based family businesses by allowing them to showcase their homemade food online. The system enables customers to browse available dishes, view prices and descriptions, and directly contact the family via WhatsApp to place an order. The platform focuses on food discovery and communication, while the transaction process is handled externally via WhatsApp.
