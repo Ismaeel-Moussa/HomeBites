@@ -38,7 +38,7 @@ This plan outlines the development roadmap for the HomeBites digital catalog pla
 
 ---
 
-### 3. Menu Management (Cook Dashboard)
+### 3. Menu Management
 **Assigned to: Ali Fuad Ali Qaid Anaam (Ali Anaam)**
 
 - Build the dish management interface for family owners.
@@ -51,7 +51,7 @@ This plan outlines the development roadmap for the HomeBites digital catalog pla
 
 ---
 
-### 4. Family Profile & Menu (Public View)
+### 4. Family Profile & Menu
 **Assigned to: Omar Mohamed Mahdi**
 
 - Build the public-facing profile page for a specific family business.
@@ -63,7 +63,7 @@ This plan outlines the development roadmap for the HomeBites digital catalog pla
 
 ---
 
-### 5. Profile Management (Cook Dashboard)
+### 5. Profile Management
 **Assigned to: Yousef Alreyashi**
 
 - Build the "Edit Profile" section in the Cook Dashboard.
