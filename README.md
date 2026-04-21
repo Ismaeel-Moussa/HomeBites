@@ -1,6 +1,3 @@
-# Home Bites 
-
-
 ##  Team Members
 
 | Name | ID | GitHub Username |
