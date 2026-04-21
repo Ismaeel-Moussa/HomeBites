@@ -1,65 +1,91 @@
-
-import { Routes, Route, Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { Button, Typography, Space, Spin, Alert } from 'antd'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import './App.scss'
 
-const { Title, Paragraph } = Typography
+// ─── Page Placeholders ─────────────────────────────────────────────────────
+// Each page will be built and imported by the respective team member.
+// For now, these are lightweight stubs so the router works immediately.
 
-// Mock fetch function
-const fetchMockData = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  return { message: 'Data fetched successfully via TanStack Query!' }
+const PlaceholderPage = ({ name }: { name: string }) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '60vh',
+      gap: '1rem',
+      fontFamily: 'var(--font-headline)',
+      color: 'var(--color-on-surface-variant)',
+    }}
+  >
+    <span style={{ fontSize: '3rem' }}>🍽️</span>
+    <h2 style={{ fontSize: '1.5rem', color: 'var(--color-primary)' }}>{name}</h2>
+    <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-on-surface-variant)' }}>
+      This page is under construction.
+    </p>
+  </div>
+)
+
+// ─── Public Pages ──────────────────────────────────────────────────────────
+// Owner: Ali Shwail
+const Home = () => <PlaceholderPage name="Home — Browse Dishes" />
+
+// Owner: Ismaeel
+const Login = () => <PlaceholderPage name="Login" />
+const SignUp = () => <PlaceholderPage name="Sign Up" />
+
+// Owner: Omar
+const FamilyProfile = () => <PlaceholderPage name="Family Profile & Menu" />
+
+// ─── Dashboard Pages (Protected) ───────────────────────────────────────────
+// Owner: Ali Anaam
+const MenuManagement = () => <PlaceholderPage name="Menu Management" />
+
+// Owner: Yousef
+const ProfileManagement = () => <PlaceholderPage name="Profile Management" />
+
+// ─── Simple Auth Guard ─────────────────────────────────────────────────────
+// Ismaeel will replace this with a proper context-based guard
+const isAuthenticated = () => !!localStorage.getItem('hb_token')
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  return isAuthenticated() ? <>{children}</> : <Navigate to="/login" replace />
 }
 
-const Home = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['mockData'],
-    queryFn: fetchMockData,
-  })
-
-  return (
-    <div className="card">
-      <Space direction="vertical" size="large">
-        <Title level={2}>Home Page</Title>
-        <Paragraph>Welcome to the React + Ant Design + React Query app.</Paragraph>
-        
-        {isLoading && <Spin tip="Loading data from query..." />}
-        {isError && <Alert message="Error fetching data" type="error" />}
-        {data && <Alert message={data.message} type="success" />}
-
-        <Link to="/about">
-          <Button type="primary">Go to About Page</Button>
-        </Link>
-      </Space>
-    </div>
-  )
-}
-
-const About = () => {
-  return (
-    <div className="card">
-      <Space direction="vertical" size="large">
-        <Title level={2}>About Page</Title>
-        <Paragraph>This page demonstrates React Router functionality.</Paragraph>
-        <Link to="/">
-          <Button>Back to Home</Button>
-        </Link>
-      </Space>
-    </div>
-  )
-}
 
 function App() {
   return (
-    <>
-      <Title level={1}>HomeBites Platform</Title>
-      
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </>
+    <Routes>
+      {/* ── Public ── */}
+      <Route path="/"            element={<Home />} />
+      <Route path="/login"       element={<Login />} />
+      <Route path="/register"    element={<SignUp />} />
+      <Route path="/family/:id"  element={<FamilyProfile />} />
+
+      {/* ── Protected Dashboard ── */}
+      <Route
+        path="/dashboard/menu"
+        element={
+          <ProtectedRoute>
+            <MenuManagement />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard/profile"
+        element={
+          <ProtectedRoute>
+            <ProfileManagement />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ── Redirect /dashboard → /dashboard/menu ── */}
+      <Route path="/dashboard" element={<Navigate to="/dashboard/menu" replace />} />
+
+      {/* ── 404 ── */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   )
 }
 

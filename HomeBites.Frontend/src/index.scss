@@ -1,30 +1,111 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   HomeBites — Global Design System
+   "Warm Hearth" — sourced from Google Stitch
+   Fonts loaded via index.html
+   ───────────────────────────────────────────────────────────────────────── */
 
-
-/* ─── Design Tokens ──────────────────────────────────────────── */
+/* ─── Design Tokens ─────────────────────────────────────────────────────── */
 :root {
-  --font-sans: 'Inter', system-ui, sans-serif;
+  /* Fonts */
+  --font-headline: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body:     'Be Vietnam Pro', system-ui, sans-serif;
 
-  /* Brand colours */
-  --color-primary:        #F97316; /* orange-500 */
-  --color-primary-dark:   #EA6C10;
-  --color-primary-light:  #FED7AA; /* orange-200 */
+  /* ── Primary (Warm Orange) ── */
+  --color-primary:              #904800;
+  --color-primary-container:    #f68a2f;
+  --color-primary-dim:          #7e3e00;
+  --color-primary-fixed:        #f68a2f;
+  --color-primary-fixed-dim:    #e57d21;
+  --color-inverse-primary:      #f68a2f;
+  --color-on-primary:           #fff0e8;
+  --color-on-primary-container: #421e00;
+  --color-on-primary-fixed:     #0f0400;
 
-  /* Backgrounds */
-  --color-bg:             #0F172A; /* slate-900 */
-  --color-surface:        #1E293B; /* slate-800 */
-  --color-surface-hover:  #263347;
-  --color-border:         #334155; /* slate-700 */
+  /* ── Secondary (Deep Amber) ── */
+  --color-secondary:                #9e3d00;
+  --color-secondary-container:      #ffc5ac;
+  --color-secondary-dim:            #8a3400;
+  --color-on-secondary:             #fff0ea;
+  --color-on-secondary-container:   #7d2f00;
+  --color-on-secondary-fixed:       #5e2100;
 
-  /* Text */
-  --color-text:           #F1F5F9; /* slate-100 */
-  --color-text-muted:     #94A3B8; /* slate-400 */
+  /* ── Tertiary ("Flavor Chip" Green) ── */
+  --color-tertiary:                 #006a35;
+  --color-tertiary-container:       #75f39c;
+  --color-tertiary-dim:             #005c2d;
+  --color-on-tertiary:              #cdffd4;
+  --color-on-tertiary-container:    #00592b;
+  --color-on-tertiary-fixed:        #004420;
 
-  /* WhatsApp */
-  --color-whatsapp:       #25D366;
-  --color-whatsapp-dark:  #1ebe59;
+  /* ── Surfaces ── */
+  --color-surface:                   #f2f7ff;
+  --color-surface-bright:            #f2f7ff;
+  --color-surface-dim:               #bad7f8;
+  --color-surface-container:         #d9eaff;
+  --color-surface-container-high:    #cee5ff;
+  --color-surface-container-highest: #c4e0ff;
+  --color-surface-container-low:     #e8f2ff;
+  --color-surface-container-lowest:  #ffffff;
+  --color-surface-tint:              #904800;
+  --color-surface-variant:           #c4e0ff;
+
+  /* ── On-Surface / Text ── */
+  --color-on-surface:         #1e3042;
+  --color-on-surface-variant: #4b5d70;
+  --color-inverse-surface:    #000f1e;
+  --color-inverse-on-surface: #8c9fb4;
+
+  /* ── Outline ── */
+  --color-outline:         #66798d;
+  --color-outline-variant: #9cafc5;
+
+  /* ── Error ── */
+  --color-error:           #b02500;
+  --color-error-container: #f95630;
+  --color-error-dim:       #b92902;
+  --color-on-error:        #ffefec;
+  --color-on-error-container: #520c00;
+
+  /* ── External ── */
+  --color-whatsapp:      #25D366;
+  --color-whatsapp-dark: #1ebe59;
+
+  /* ── Border Radii ── */
+  --radius-sm:   0.25rem;   /* 4px  — chips / badges */
+  --radius-md:   0.5rem;    /* 8px  — base (Stitch ROUND_EIGHT) */
+  --radius-lg:   1rem;      /* 16px — cards / avatars */
+  --radius-xl:   1.5rem;    /* 24px — large panels */
+  --radius-full: 9999px;    /* pill — primary CTAs */
+
+  /* ── Spacing ── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* ── Elevation (tinted shadows — never pure black) ── */
+  --shadow-ambient: 0 8px 24px rgba(30, 48, 66, 0.06);
+  --shadow-card:    0 4px 12px rgba(30, 48, 66, 0.08);
+  --shadow-hover:   0 12px 32px rgba(30, 48, 66, 0.12);
+  --shadow-float:   0 16px 48px rgba(30, 48, 66, 0.14);
+
+  /* ── Transitions ── */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* ── Layout ── */
+  --max-width-content: 1280px;
+  --max-width-narrow:  860px;
 }
 
-/* ─── Base Reset ─────────────────────────────────────────────── */
+/* ─── Base Reset ─────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -33,21 +114,34 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  min-height: 100vh;
+  font-family: var(--font-body);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
+  color: var(--color-on-surface);
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+p, span, label, li {
+  font-family: var(--font-body);
 }
 
 a {
@@ -60,45 +154,200 @@ img {
   max-width: 100%;
 }
 
-/* ─── Utilities ──────────────────────────────────────────────── */
+/* ─── Surface Layers ─────────────────────────────────────────────────────── */
+/* Use these classes to separate sections WITHOUT borders (the "No-Line" rule) */
 
-/* Smooth card hover lift */
-.card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+.surface {
+  background: var(--color-surface);
 }
 
-/* Gradient text */
+.surface-section {
+  background: var(--color-surface-container-low);
+}
+
+.surface-container {
+  background: var(--color-surface-container);
+}
+
+.surface-card {
+  background: var(--color-surface-container-lowest);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* ─── Typography Scale ───────────────────────────────────────────────────── */
+
+.text-display-lg {
+  font-family: var(--font-headline);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.text-display-md {
+  font-family: var(--font-headline);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.text-headline-lg {
+  font-family: var(--font-headline);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+.text-headline-md {
+  font-family: var(--font-headline);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+}
+
+.text-body-lg {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.text-body-md {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.text-label {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.text-muted {
+  color: var(--color-on-surface-variant);
+}
+
+/* ─── Gradient Text ──────────────────────────────────────────────────────── */
+
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-primary), #FBBF24);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-container));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Hero gradient background */
-.hero-gradient {
-  background: linear-gradient(
-    135deg,
-    #0F172A 0%,
-    #1a1f35 50%,
-    #1a1208 100%
-  );
+/* ─── Primary CTA Gradient Button ───────────────────────────────────────── */
+/* Use on <button> or Ant Design's <Button> via className */
+
+.btn-primary-gradient {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-container));
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter var(--transition-base), transform var(--transition-fast);
+
+  &:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    filter: brightness(0.96);
+    transform: translateY(0);
+  }
 }
 
-/* Glass-morphism card */
+/* ─── Glassmorphism ──────────────────────────────────────────────────────── */
+/* Use for sticky navbars, floating cards, price overlays */
+
 .glass {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(242, 247, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--color-bg); }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+.glass-dark {
+  background: rgba(0, 15, 30, 0.60);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #fff;
+}
+
+/* ─── Card Hover Lift ────────────────────────────────────────────────────── */
+
+.card-hover {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+}
+
+/* ─── Flavor Chip (Food Tags) ────────────────────────────────────────────── */
+/* e.g. "Organic", "Spicy", "Traditional" */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--color-tertiary-container);
+  color: var(--color-on-tertiary-container);
+  white-space: nowrap;
+}
+
+.chip-warm {
+  background: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+/* ─── WhatsApp Button ────────────────────────────────────────────────────── */
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-whatsapp);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-base), transform var(--transition-fast);
+
+  &:hover {
+    background: var(--color-whatsapp-dark);
+    transform: translateY(-1px);
+  }
+}
+
+/* ─── Container Utilities ────────────────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width-content);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--max-width-narrow);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar         { width: 6px; height: 6px; }
+::-webkit-scrollbar-track   { background: var(--color-surface-container-low); }
+::-webkit-scrollbar-thumb   { background: var(--color-outline-variant); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-outline); }
