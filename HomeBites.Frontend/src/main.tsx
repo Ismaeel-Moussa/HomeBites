@@ -71,15 +71,15 @@ const antTheme = {
       fontWeight:           600,
     },
     Input: {
-      // Soft-filled inputs per design spec
-      colorBgContainer:     '#c4e0ff',   // surface-container-highest
+      // Clean white inputs
+      colorBgContainer:     '#ffffff',
       colorBgContainerDisabled: '#e8f2ff',
-      activeBg:             '#ffffff',    // surface-container-lowest on focus
+      activeBg:             '#ffffff',
       activeBorderColor:    '#E67E22',
       borderRadius:         8,
     },
     Select: {
-      colorBgContainer:     '#c4e0ff',
+      colorBgContainer:     '#ffffff',
       borderRadius:         8,
     },
     Card: {

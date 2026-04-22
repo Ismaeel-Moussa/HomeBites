@@ -1,0 +1,214 @@
+.sider {
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--color-surface-container-lowest) !important;
+  border-right: 1px solid var(--color-outline-variant);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
+  z-index: 100;
+  transition: all 0.2s !important;
+}
+
+.sider.collapsed {
+  .container {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .brand {
+    justify-content: center;
+    padding: 0.5rem 0 1.5rem;
+  }
+
+  .userCard {
+    padding: 1rem 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .navItem {
+    justify-content: center;
+    padding: 0.875rem 0;
+    
+    .navIcon {
+      margin: 0;
+    }
+  }
+
+  .logoutBtn {
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.25rem;
+  overflow: hidden;
+}
+
+/* ── Brand ── */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.5rem 0.5rem 2rem;
+  position: relative;
+}
+
+.toggleBtn {
+  margin-left: auto;
+  color: var(--color-on-surface-variant) !important;
+}
+
+.logoBox {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-container));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(144, 72, 0, 0.2);
+}
+
+.logoIcon {
+  font-size: 1.25rem;
+}
+
+.brandName {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--color-on-surface);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ── User Card ── */
+
+.userCard {
+  background: var(--color-surface-container-low);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-outline-variant);
+  transition: all 0.2s;
+}
+
+.avatar {
+  border: 4px solid var(--color-surface-container-lowest);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 0.875rem;
+  flex-shrink: 0;
+}
+
+.collapsed .avatar {
+  margin-bottom: 0;
+}
+
+.userName {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+  white-space: nowrap;
+}
+
+.badgeIcon {
+  color: var(--color-primary);
+  font-size: 0.875rem;
+}
+
+/* ── Nav ── */
+
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius-lg);
+  color: var(--color-on-surface-variant);
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: all 200ms ease;
+  text-decoration: none;
+
+  &:hover {
+    background: var(--color-surface-container-high);
+    color: var(--color-primary);
+  }
+}
+
+.navItem.active {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(144, 72, 0, 0.25);
+
+  .navIcon {
+    color: #fff !important;
+  }
+}
+
+.navIcon {
+  font-size: 1.125rem;
+  transition: color 200ms ease;
+}
+
+/* ── Footer ── */
+
+.footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.logoutBtn {
+  height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.75rem !important;
+  padding: 0 1.25rem !important;
+  color: var(--color-on-surface-variant) !important;
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden;
+
+  &:hover {
+    background: #fff1f0 !important;
+    color: #f5222d !important;
+  }
+}
+

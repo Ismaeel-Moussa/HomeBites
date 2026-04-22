@@ -1,4 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
+import { useAuth } from './hooks/useAuth'
+import LoginPage from './pages/LoginPage'
+import SignUpPage from './pages/SignUpPage'
+import DashboardLayout from './layouts/DashboardLayout'
+import MenuManagementPage from './pages/MenuManagementPage'
+import ProfileManagementPage from './pages/ProfileManagementPage'
 import './App.scss'
 
 // ─── Page Placeholders ─────────────────────────────────────────────────────
@@ -30,62 +37,49 @@ const PlaceholderPage = ({ name }: { name: string }) => (
 // Owner: Ali Shwail
 const Home = () => <PlaceholderPage name="Home — Browse Dishes" />
 
-// Owner: Ismaeel
-const Login = () => <PlaceholderPage name="Login" />
-const SignUp = () => <PlaceholderPage name="Sign Up" />
-
 // Owner: Omar
 const FamilyProfile = () => <PlaceholderPage name="Family Profile & Menu" />
 
-// ─── Dashboard Pages (Protected) ───────────────────────────────────────────
-// Owner: Ali Anaam
-const MenuManagement = () => <PlaceholderPage name="Menu Management" />
-
-// Owner: Yousef
-const ProfileManagement = () => <PlaceholderPage name="Profile Management" />
-
 // ─── Simple Auth Guard ─────────────────────────────────────────────────────
-// Ismaeel will replace this with a proper context-based guard
-const isAuthenticated = () => !!localStorage.getItem('hb_token')
-
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  return isAuthenticated() ? <>{children}</> : <Navigate to="/login" replace />
+  const { isAuthenticated } = useAuth()
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />
 }
 
-
-function App() {
+function AppContent() {
   return (
     <Routes>
       {/* ── Public ── */}
       <Route path="/"            element={<Home />} />
-      <Route path="/login"       element={<Login />} />
-      <Route path="/register"    element={<SignUp />} />
+      <Route path="/login"       element={<LoginPage />} />
+      <Route path="/register"    element={<SignUpPage />} />
       <Route path="/family/:id"  element={<FamilyProfile />} />
 
       {/* ── Protected Dashboard ── */}
       <Route
-        path="/dashboard/menu"
+        path="/dashboard"
         element={
           <ProtectedRoute>
-            <MenuManagement />
+            <DashboardLayout />
           </ProtectedRoute>
         }
-      />
-      <Route
-        path="/dashboard/profile"
-        element={
-          <ProtectedRoute>
-            <ProfileManagement />
-          </ProtectedRoute>
-        }
-      />
-
-      {/* ── Redirect /dashboard → /dashboard/menu ── */}
-      <Route path="/dashboard" element={<Navigate to="/dashboard/menu" replace />} />
+      >
+        <Route path="menu" element={<MenuManagementPage />} />
+        <Route path="profile" element={<ProfileManagementPage />} />
+        <Route index element={<Navigate to="/dashboard/menu" replace />} />
+      </Route>
 
       {/* ── 404 ── */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+  )
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   )
 }
 
