@@ -116,11 +116,12 @@ public class AuthController : ControllerBase
             return Unauthorized(new { code = "invalid_credentials", message = "Invalid email or password." });
         }
 
-        var token = GenerateJwtToken(user);
+        var family = await _dbContext.Families.FirstOrDefaultAsync(f => f.UserId == user.Id);
+        var token = GenerateJwtToken(user, family);
         return Ok(token);
     }
 
-    private AuthResponse GenerateJwtToken(ApplicationUser user)
+    private AuthResponse GenerateJwtToken(ApplicationUser user, Family? family = null)
     {
         var jwtKey = _configuration["Jwt:Key"] ?? "development-secret-key-change-in-prod";
         var jwtIssuer = _configuration["Jwt:Issuer"] ?? "HomeBitesIssuer";
@@ -150,7 +151,11 @@ public class AuthController : ControllerBase
         return new AuthResponse
         {
             Token = tokenString,
-            ExpiresAt = expires
+            ExpiresAt = expires,
+            UserId = user.Id.ToString(),
+            Email = user.Email ?? string.Empty,
+            Name = family?.Name ?? string.Empty,
+            ProfileImageUrl = family?.ProfileImageUrl
         };
     }
 }
