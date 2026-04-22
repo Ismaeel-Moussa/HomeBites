@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import { Form, Input, Button, Alert, Upload, message as antMessage } from 'antd'
+import { Form, Input, Button, Alert, Upload } from 'antd'
 import { UploadOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
 import type { UploadFile } from 'antd'
 import axios from 'axios'
@@ -44,9 +44,9 @@ export default function SignUpPage() {
   const mutation = useMutation({
     mutationFn: registerFamilyApi,
     onSuccess: () => {
-      navigate('/login', { 
-        replace: true, 
-        state: { message: 'Account created! Your kitchen is ready. Please sign in.' } 
+      navigate('/login', {
+        replace: true,
+        state: { message: 'Account created! Your kitchen is ready. Please sign in.' }
       })
     },
     onError: (err) => {

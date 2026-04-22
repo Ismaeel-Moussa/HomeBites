@@ -130,6 +130,7 @@ public class DishService : IDishService
             CategoryName = d.Category?.Name ?? string.Empty,
             FamilyId = d.FamilyId,
             FamilyName = d.Family?.Name ?? string.Empty,
+            FamilyProfileImageUrl = d.Family?.ProfileImageUrl,
             WhatsAppNumber = d.Family?.WhatsAppNumber ?? string.Empty
         };
     }
