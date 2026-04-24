@@ -13,7 +13,7 @@ export default function RootLayout() {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header />
+      <Header collapsed={collapsed} onCollapse={setCollapsed} />
       <Layout style={{ marginTop: 64 }}>
         {isAuthenticated && (
           <Sidebar collapsed={collapsed} onCollapse={setCollapsed} />

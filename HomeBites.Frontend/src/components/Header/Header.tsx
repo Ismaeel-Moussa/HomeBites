@@ -1,12 +1,17 @@
 import { Layout, Button, Avatar } from 'antd'
-import { UserOutlined, CheckCircleFilled } from '@ant-design/icons'
+import { UserOutlined, CheckCircleFilled, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import styles from './Header.module.scss'
 
 const { Header: AntHeader } = Layout
 
-export default function Header() {
+interface HeaderProps {
+  collapsed?: boolean
+  onCollapse?: (collapsed: boolean) => void
+}
+
+export default function Header({ collapsed, onCollapse }: HeaderProps) {
   const { user, isAuthenticated } = useAuth()
   const navigate = useNavigate()
 
@@ -19,6 +24,17 @@ export default function Header() {
   return (
     <AntHeader className={styles.header}>
       <div className={styles.left}>
+        {/* ── Sidebar Toggle (only when authenticated) ── */}
+        {isAuthenticated && onCollapse && (
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => onCollapse(!collapsed)}
+            className={styles.menuBtn}
+            aria-label="Toggle sidebar"
+          />
+        )}
+
         <div className={styles.logoBox}>
           <span className={styles.logoIcon}>🍽️</span>
         </div>

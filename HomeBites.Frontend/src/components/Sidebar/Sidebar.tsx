@@ -4,8 +4,6 @@ import {
   UserOutlined, 
   BookOutlined, 
   LogoutOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   HomeOutlined
 } from '@ant-design/icons'
 import { useAuth } from '../../hooks/useAuth'
@@ -31,17 +29,10 @@ export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
     >
       <div className={styles.container}>
 
-        {/* ── Brand + Toggle ── */}
+        {/* ── Brand ── */}
         <div className={styles.brand}>
           <span className={styles.brandIcon}>🍽️</span>
           <span className={styles.brandText}>HomeBites</span>
-          <Button 
-            type="default"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} 
-            onClick={() => onCollapse(!collapsed)}
-            className={styles.toggleBtn}
-            size="small"
-          />
         </div>
 
         {/* ── Navigation ── */}
