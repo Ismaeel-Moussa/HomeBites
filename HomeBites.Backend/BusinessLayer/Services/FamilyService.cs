@@ -10,7 +10,7 @@ public interface IFamilyService
     Task<IEnumerable<FamilyListDto>> GetAllFamiliesAsync();
     Task<IEnumerable<FamilyListDto>> SearchFamiliesAsync(string? searchTerm);
     Task<FamilyDetailDto?> GetFamilyDetailsAsync(int id);
-    Task<Family?> UpdateFamilyProfileAsync(int id, UpdateFamilyRequest request);
+    Task<UpdateFamilyResponseDto?> UpdateFamilyProfileAsync(int id, UpdateFamilyRequest request);
 }
 
 public class FamilyService : IFamilyService
@@ -67,7 +67,7 @@ public class FamilyService : IFamilyService
         };
     }
 
-    public async Task<Family?> UpdateFamilyProfileAsync(int id, UpdateFamilyRequest request)
+    public async Task<UpdateFamilyResponseDto?> UpdateFamilyProfileAsync(int id, UpdateFamilyRequest request)
     {
         var family = await _repository.GetByIdAsync(id);
         if (family == null) return null;
@@ -97,13 +97,22 @@ public class FamilyService : IFamilyService
             var newImageUrl = await _photoService.SavePhotoAsync(request.ProfileImage, "profiles");
             if (string.IsNullOrEmpty(newImageUrl))
                 throw new Exception("Image upload failed.");
-            
+
             family.ProfileImageUrl = newImageUrl;
         }
 
         _repository.Update(family);
         await _repository.SaveAsync();
-        return family;
+
+        return new UpdateFamilyResponseDto
+        {
+            Id = family.Id,
+            Name = family.Name,
+            Location = family.Location,
+            Bio = family.Bio,
+            ProfileImageUrl = family.ProfileImageUrl,
+            WhatsAppNumber = family.WhatsAppNumber
+        };
     }
 
     private FamilyListDto MapToListDto(Family f)

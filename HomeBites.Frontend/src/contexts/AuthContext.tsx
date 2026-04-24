@@ -18,6 +18,7 @@ interface AuthContextValue {
   isAuthenticated: boolean
   login: (response: AuthResponse) => void
   logout: () => void
+  updateUser: (partial: Partial<StoredUser>) => void
 }
 
 // ── Context ────────────────────────────────────────────────────────────────
@@ -28,6 +29,7 @@ export const AuthContext = createContext<AuthContextValue>({
   isAuthenticated: false,
   login: () => {},
   logout: () => {},
+  updateUser: () => {},
 })
 
 // ── Provider ───────────────────────────────────────────────────────────────
@@ -73,9 +75,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null)
   }, [])
 
+  const updateUser = useCallback((partial: Partial<StoredUser>) => {
+    setUser(prev => {
+      if (!prev) return prev
+      const updated = { ...prev, ...partial }
+      localStorage.setItem(USER_KEY, JSON.stringify(updated))
+      return updated
+    })
+  }, [])
+
   const value = useMemo<AuthContextValue>(
-    () => ({ token, user, isAuthenticated: !!token, login, logout }),
-    [token, user, login, logout],
+    () => ({ token, user, isAuthenticated: !!token, login, logout, updateUser }),
+    [token, user, login, logout, updateUser],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
