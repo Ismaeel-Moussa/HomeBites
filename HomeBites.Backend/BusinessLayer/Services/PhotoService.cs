@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 
 namespace BusinessLayer.Services;
@@ -12,7 +12,7 @@ public class PhotoService
         _environment = environment;
     }
 
-    public async Task<string> SavePhotoAsync(IFormFile file, string subFolder)
+    public async Task<string?> SavePhotoAsync(IFormFile file, string subFolder)
     {
         if (file == null || file.Length == 0) return null;
 

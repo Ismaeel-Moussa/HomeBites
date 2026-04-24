@@ -50,7 +50,6 @@ export const createDish = async (
   const res = await apiClient.post<Dish>('dishes', form, {
     headers: {
       ...authHeader(token),
-      'Content-Type': 'multipart/form-data',
     },
   })
   return res.data
@@ -72,7 +71,6 @@ export const updateDish = async (
   const res = await apiClient.put<Dish>(`dishes/${id}`, form, {
     headers: {
       ...authHeader(token),
-      'Content-Type': 'multipart/form-data',
     },
   })
   return res.data

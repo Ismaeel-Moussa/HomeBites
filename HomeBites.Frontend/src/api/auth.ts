@@ -62,7 +62,6 @@ export const registerFamilyApi = async (
   const res = await api.post<RegisterSuccessResponse>(
     'auth/register-family',
     form,
-    { headers: { 'Content-Type': 'multipart/form-data' } },
   )
   return res.data
 }

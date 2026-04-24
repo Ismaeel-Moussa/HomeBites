@@ -95,9 +95,9 @@ const antTheme = {
       borderRadius:          8,
     },
     Layout: {
-      colorBgHeader:  'rgba(242, 247, 255, 0.80)', // glass nav
-      colorBgBody:    '#f2f7ff',
-      colorBgSider:   '#ffffff',
+      headerBg:  'rgba(242, 247, 255, 0.80)', // glass nav
+      bodyBg:    '#f2f7ff',
+      siderBg:   '#ffffff',
     },
     Form: {
       labelColor:     '#4b5d70',   // on-surface-variant

@@ -44,8 +44,8 @@ public class DishesController : ControllerBase
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "FamilyOnly")]
     public async Task<IActionResult> GetMyDishes()
     {
-        var userId = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
-        if (userId == null) return Unauthorized();
+        var userIdClaim = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+        if (userIdClaim == null || !int.TryParse(userIdClaim, out int userId)) return Unauthorized();
 
         var family = await _dbContext.Families.FirstOrDefaultAsync(f => f.UserId == userId);
         if (family == null) return NotFound("Family profile not found.");
@@ -60,8 +60,8 @@ public class DishesController : ControllerBase
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "FamilyOnly")]
     public async Task<IActionResult> CreateDish([FromForm] CreateDishRequest request)
     {
-        var userId = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
-        if (userId == null) return Unauthorized();
+        var userIdClaim = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+        if (userIdClaim == null || !int.TryParse(userIdClaim, out int userId)) return Unauthorized();
 
         var family = await _dbContext.Families.FirstOrDefaultAsync(f => f.UserId == userId);
         if (family == null) return NotFound("Family profile not found.");
