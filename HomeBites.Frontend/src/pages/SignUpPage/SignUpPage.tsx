@@ -5,8 +5,8 @@ import { Form, Input, Button, Alert, Upload } from 'antd'
 import { UploadOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
 import type { UploadFile } from 'antd'
 import axios from 'axios'
-import { registerFamilyApi } from '../api/auth'
-import type { RegisterFamilyRequest, ApiError } from '../api/auth'
+import { registerFamilyApi } from '../../api/auth'
+import type { RegisterFamilyRequest, ApiError } from '../../api/auth'
 import styles from './SignUpPage.module.scss'
 
 // ── Form values type ───────────────────────────────────────────────────────

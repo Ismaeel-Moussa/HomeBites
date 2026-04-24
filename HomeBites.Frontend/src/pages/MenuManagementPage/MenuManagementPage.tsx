@@ -5,11 +5,11 @@ import {
   DeleteOutlined,
   MenuOutlined,
 } from '@ant-design/icons'
-import { useAuth } from '../hooks/useAuth'
-import { getMyDishes, deleteDish } from '../api/dishes'
-import type { Dish } from '../hooks/useDishes'
-import { IMAGE_BASE_URL } from '../api/apiClient'
-import { DishModal } from '../components/DishModal/DishModal'
+import { useAuth } from '../../hooks/useAuth'
+import { getMyDishes, deleteDish } from '../../api/dishes'
+import type { Dish } from '../../hooks/useDishes'
+import { IMAGE_BASE_URL } from '../../api/apiClient'
+import { DishModal } from '../../components/DishModal/DishModal'
 import styles from './MenuManagementPage.module.scss'
 
 // ── Skeleton Card ──────────────────────────────────────────────────────────

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { useDishes } from '../hooks/useDishes'
-import { useCategories } from '../hooks/useCategories'
-import { DishCard } from '../components/DishCard/DishCard'
-import { CategoryFilter } from '../components/CategoryFilter/CategoryFilter'
+import { useDishes } from '../../hooks/useDishes'
+import { useCategories } from '../../hooks/useCategories'
+import { DishCard } from '../../components/DishCard/DishCard'
+import { CategoryFilter } from '../../components/CategoryFilter/CategoryFilter'
 import styles from './HomePage.module.scss'
 import { SearchOutlined } from '@ant-design/icons'
 

@@ -1,19 +1,15 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { useAuth } from './hooks/useAuth'
-import LoginPage from './pages/LoginPage'
-import SignUpPage from './pages/SignUpPage'
+import SignUpPage from './pages/SignUpPage/SignUpPage'
 import RootLayout from './layouts/RootLayout'
 import DashboardLayout from './layouts/DashboardLayout'
-import MenuManagementPage from './pages/MenuManagementPage'
-import ProfileManagementPage from './pages/ProfileManagementPage'
-import HomePage from './pages/HomePage'
-import FamilyProfilePage from './pages/FamilyProfilePage'
+import MenuManagementPage from './pages/MenuManagementPage/MenuManagementPage'
+import ProfileManagementPage from './pages/ProfileManagementPage/ProfileManagementPage'
+import HomePage from './pages/HomePage/HomePage'
 import './App.scss'
-
-// ─── Page Placeholders ─────────────────────────────────────────────────────
-// Each page will be built and imported by the respective team member.
-// For now, these are lightweight stubs so the router works immediately.
+import FamilyProfilePage from './pages/FamilyProfilePage/FamilyProfilePage'
+import LoginPage from './pages/LoginPage/LoginPage'
 
 // ─── Simple Auth Guard ─────────────────────────────────────────────────────
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
