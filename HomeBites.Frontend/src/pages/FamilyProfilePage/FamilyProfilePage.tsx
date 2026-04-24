@@ -30,7 +30,7 @@ const FamilyProfilePage: React.FC = () => {
   // Always show all main categories as tabs
   const tabs = useMemo(() => {
     if (!family) return []
-    return [ALL_TAB, 'Appetizers', 'Desserts', 'Drinks', 'Mains']
+    return [ALL_TAB, 'Mains', 'Appetizers', 'Desserts', 'Drinks']
   }, [family])
 
   const filteredDishes = useMemo(() => {
