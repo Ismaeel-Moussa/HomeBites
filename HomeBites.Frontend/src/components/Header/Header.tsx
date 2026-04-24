@@ -1,6 +1,6 @@
 import { Layout, Button, Avatar } from 'antd'
 import { UserOutlined, CheckCircleFilled } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import styles from './Header.module.scss'
 
@@ -19,10 +19,13 @@ export default function Header() {
   return (
     <AntHeader className={styles.header}>
       <div className={styles.left}>
-        <div className={styles.logoBox}>
-          <span className={styles.logoIcon}>🍽️</span>
+        <div className={styles.logoGroup} onClick={() => navigate('/')}>
+          <div className={styles.logoBox}>
+            <span className={styles.logoIcon}>🍽️</span>
+          </div>
+          <span className={styles.brandName}>HomeBites</span>
         </div>
-        <span className={styles.brandName}>HomeBites</span>
+        <Link to="/" className={styles.navLink}>HomePage</Link>
       </div>
 
       <div className={styles.right}>
