@@ -179,7 +179,8 @@ const FamilyProfilePage: React.FC = () => {
             <span>🍳</span>
             <p className="text-headline-md text-muted">No dishes in this category yet.</p>
           </div>
-        ) : (
+        ) : activeTab === ALL_TAB ? (
+          // "All" tab — grouped by category with section headings
           Array.from(dishesByCategory.entries()).map(([category, dishes]) => (
             <section key={category} className={styles.categorySection}>
               <h2 className={`text-headline-md ${styles.categoryTitle}`}>
@@ -193,6 +194,13 @@ const FamilyProfilePage: React.FC = () => {
               </div>
             </section>
           ))
+        ) : (
+          // Specific tab — flat grid, no heading (tab label makes it obvious)
+          <div className={styles.dishGrid}>
+            {filteredDishes.map(dish => (
+              <DishCard key={dish.id} dish={dish} showFamily={false} />
+            ))}
+          </div>
         )}
       </main>
     </div>
