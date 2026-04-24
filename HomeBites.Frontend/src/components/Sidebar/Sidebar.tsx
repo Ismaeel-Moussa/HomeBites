@@ -6,7 +6,8 @@ import {
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  HomeOutlined
+  HomeOutlined,
+  SettingOutlined
 } from '@ant-design/icons'
 import { useAuth } from '../../hooks/useAuth'
 import styles from './Sidebar.module.scss'
@@ -73,6 +74,16 @@ export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
             >
               <BookOutlined className={styles.navIcon} />
               <span className={styles.navLabel}>Menu</span>
+            </NavLink>
+          </Tooltip>
+
+          <Tooltip title={collapsed ? 'Profile Settings' : ''} placement="right">
+            <NavLink
+              to="/dashboard/profile"
+              className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
+            >
+              <SettingOutlined className={styles.navIcon} />
+              <span className={styles.navLabel}>Profile Settings</span>
             </NavLink>
           </Tooltip>
         <div className={styles.footer} style={{position: 'fixed',bottom: '20px',width: collapsed ? '53px' : '213px'}}>
