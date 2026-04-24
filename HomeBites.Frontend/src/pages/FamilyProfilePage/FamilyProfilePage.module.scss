@@ -124,6 +124,14 @@
 .hero {
   padding-block: var(--space-12) var(--space-10);
   position: relative;
+
+  @media (max-width: 768px) {
+    padding-block: var(--space-8) var(--space-6);
+  }
+
+  @media (max-width: 480px) {
+    padding-block: var(--space-6) var(--space-4);
+  }
 }
 
 .heroInner {
@@ -157,6 +165,10 @@
     background: var(--color-surface-container);
     transform: translateX(-2px);
     box-shadow: var(--shadow-card);
+  }
+
+  @media (max-width: 480px) {
+    left: var(--space-3);
   }
 }
 
@@ -231,6 +243,11 @@
   overflow-x: auto;
   scrollbar-width: none;
   padding-block: var(--space-1); // prevent pill shadow clipping
+  padding-inline: var(--space-1);
+
+  @media (max-width: 480px) {
+    padding-inline: var(--space-3);
+  }
 
   &::-webkit-scrollbar { display: none; }
 }

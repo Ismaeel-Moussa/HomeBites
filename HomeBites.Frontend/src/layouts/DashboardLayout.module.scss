@@ -1,0 +1,13 @@
+/* ── DashboardLayout — responsive wrapper ── */
+
+.wrapper {
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
+}

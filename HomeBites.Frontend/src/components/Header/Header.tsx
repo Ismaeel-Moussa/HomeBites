@@ -1,12 +1,17 @@
 import { Layout, Button, Avatar } from 'antd'
-import { UserOutlined, CheckCircleFilled } from '@ant-design/icons'
+import { UserOutlined, CheckCircleFilled, MenuOutlined } from '@ant-design/icons'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import styles from './Header.module.scss'
 
 const { Header: AntHeader } = Layout
 
-export default function Header() {
+interface HeaderProps {
+  onHamburgerClick?: () => void
+  showHamburger?: boolean
+}
+
+export default function Header({ onHamburgerClick, showHamburger }: HeaderProps) {
   const { user, isAuthenticated } = useAuth()
   const navigate = useNavigate()
 
@@ -19,6 +24,15 @@ export default function Header() {
   return (
     <AntHeader className={styles.header}>
       <div className={styles.left}>
+        {/* Hamburger — only on mobile when authenticated */}
+        {showHamburger && (
+          <Button
+            type="text"
+            icon={<MenuOutlined />}
+            onClick={onHamburgerClick}
+            className={styles.hamburger}
+          />
+        )}
         <div className={styles.logoGroup} onClick={() => navigate('/')}>
           <div className={styles.logoBox}>
             <span className={styles.logoIcon}>🍽️</span>
@@ -35,7 +49,7 @@ export default function Header() {
               <span className={styles.userName}>{user?.name || 'Home Cook'}</span>
               <div className={styles.badge}>
                 <CheckCircleFilled className={styles.badgeIcon} />
-                <span>Verified Home Cook</span>
+                <span className={styles.badgeText}>Verified Home Cook</span>
               </div>
             </div>
             <Avatar 
