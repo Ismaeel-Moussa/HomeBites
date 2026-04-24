@@ -82,12 +82,12 @@ export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
             {!collapsed && <span>Home Page</span>}
           </NavLink>
           <NavLink 
-            to="/dashboard/profile" 
+            to={user?.familyId ? `/family/${user.familyId}` : '/dashboard/profile'} 
             className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
-            title={collapsed ? "Profile" : ""}
+            title={collapsed ? "My Profile" : ""}
           >
             <UserOutlined className={styles.navIcon} />
-            {!collapsed && <span>Profile</span>}
+            {!collapsed && <span>My Profile</span>}
           </NavLink>
 
           <NavLink 

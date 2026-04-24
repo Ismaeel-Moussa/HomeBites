@@ -153,6 +153,7 @@ public class AuthController : ControllerBase
             Token = tokenString,
             ExpiresAt = expires,
             UserId = user.Id.ToString(),
+            FamilyId = family?.Id,
             Email = user.Email ?? string.Empty,
             Name = family?.Name ?? string.Empty,
             ProfileImageUrl = family?.ProfileImageUrl

@@ -8,6 +8,7 @@ import DashboardLayout from './layouts/DashboardLayout'
 import MenuManagementPage from './pages/MenuManagementPage'
 import ProfileManagementPage from './pages/ProfileManagementPage'
 import HomePage from './pages/HomePage'
+import FamilyProfilePage from './pages/FamilyProfilePage'
 import './App.scss'
 
 // ─── Page Placeholders ─────────────────────────────────────────────────────
@@ -35,11 +36,6 @@ const PlaceholderPage = ({ name }: { name: string }) => (
   </div>
 )
 
-// ─── Public Pages ──────────────────────────────────────────────────────────
-
-// Owner: Omar
-const FamilyProfile = () => <PlaceholderPage name="Family Profile & Menu" />
-
 // ─── Simple Auth Guard ─────────────────────────────────────────────────────
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth()
@@ -54,7 +50,7 @@ function AppContent() {
         <Route path="/"            element={<HomePage />} />
         <Route path="/login"       element={<LoginPage />} />
         <Route path="/register"    element={<SignUpPage />} />
-        <Route path="/family/:id"  element={<FamilyProfile />} />
+        <Route path="/family/:id"  element={<FamilyProfilePage />} />
 
         {/* ── Protected Dashboard ── */}
         <Route

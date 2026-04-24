@@ -1,0 +1,325 @@
+// ── Page Shell ────────────────────────────────────────────────────────────────
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+// ── State Containers (loading / error) ────────────────────────────────────────
+
+.stateContainer {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  padding-block: var(--space-16);
+}
+
+// ── Skeleton Loading ──────────────────────────────────────────────────────────
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-container) 25%,
+    var(--color-surface-container-high) 50%,
+    var(--color-surface-container) 75%
+  );
+  background-size: 1200px 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 560px;
+  padding-inline: var(--space-6);
+}
+
+.skeletonCircle {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+
+.skeletonLine {
+  height: 1rem;
+  border-radius: var(--radius-full);
+}
+
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  width: 100%;
+
+  @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 480px) { grid-template-columns: 1fr; }
+}
+
+.skeletonCard {
+  height: 280px;
+  border-radius: var(--radius-lg);
+}
+
+// ── Error State ───────────────────────────────────────────────────────────────
+
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+  max-width: 480px;
+  padding-inline: var(--space-6);
+}
+
+.errorEmoji {
+  font-size: 4rem;
+}
+
+.errorActions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--space-2);
+}
+
+.errorBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: filter var(--transition-base), transform var(--transition-fast);
+
+  &:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+}
+
+.retryBtn {
+  background: var(--color-surface-container);
+  color: var(--color-on-surface);
+  border: 1.5px solid var(--color-outline-variant);
+}
+
+// ── Hero Section ──────────────────────────────────────────────────────────────
+
+.hero {
+  padding-block: var(--space-12) var(--space-10);
+  position: relative;
+}
+
+.heroInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+  position: relative;
+}
+
+// Back button — absolutely positioned top-left within the container
+.backBtn {
+  position: absolute;
+  top: 0;
+  left: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-outline-variant);
+  background: var(--color-surface-container-lowest);
+  color: var(--color-on-surface);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+
+  &:hover {
+    background: var(--color-surface-container);
+    transform: translateX(-2px);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+// Avatar
+.avatarWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-hover);
+}
+
+// Green "active" dot
+.onlineDot {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-whatsapp);
+  border: 2px solid var(--color-surface-container-low);
+}
+
+.familyName {
+  margin: 0;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0;
+}
+
+.locationIcon {
+  color: var(--color-primary);
+  font-size: 0.85rem;
+}
+
+.bio {
+  max-width: 520px;
+  color: var(--color-on-surface-variant);
+  margin: 0;
+  line-height: 1.65;
+}
+
+.whatsappCta {
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-8);
+  font-size: 1rem;
+}
+
+// ── Category Tab Bar ──────────────────────────────────────────────────────────
+
+.tabBar {
+  background: var(--color-surface);
+  padding-block: var(--space-4);
+  border-bottom: 1.5px solid var(--color-surface-container);
+}
+
+.tabList {
+  display: flex;
+  list-style: none;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: var(--space-1); // prevent pill shadow clipping
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+.tab {
+  flex-shrink: 0;
+  padding: var(--space-2) var(--space-5);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+  background: var(--color-surface-container);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+
+  &:hover {
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+.tabActive {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(144, 72, 0, 0.25);
+
+  &:hover {
+    background: var(--color-primary-dim);
+    color: var(--color-on-primary);
+    transform: translateY(-1px);
+  }
+}
+
+// ── Dish Sections ─────────────────────────────────────────────────────────────
+
+.main {
+  flex: 1;
+  padding-block: var(--space-10) var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.categorySection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.categoryTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.categoryIcon {
+  font-style: normal;
+}
+
+.dishGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+
+  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 560px) { grid-template-columns: 1fr; }
+}
+
+// ── Empty Dishes ──────────────────────────────────────────────────────────────
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding-block: var(--space-16);
+  text-align: center;
+
+  span {
+    font-size: 3rem;
+  }
+}

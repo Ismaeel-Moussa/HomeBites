@@ -6,6 +6,7 @@ import type { AuthResponse } from '../api/auth'
 
 export interface StoredUser {
   userId: string
+  familyId?: number
   email: string
   name: string
   profileImageUrl?: string
@@ -54,6 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = useCallback((response: AuthResponse) => {
     const stored: StoredUser = {
       userId: response.userId,
+      familyId: response.familyId,
       email: response.email,
       name: response.name,
       profileImageUrl: response.profileImageUrl,

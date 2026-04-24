@@ -25,6 +25,7 @@ export interface AuthResponse {
   token: string
   expiresAt: string
   userId: string
+  familyId?: number
   email: string
   name: string
   profileImageUrl?: string
