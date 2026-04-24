@@ -151,7 +151,7 @@ export default function MenuManagementPage() {
 
       {/* ── Current Menu Items ── */}
       <section aria-labelledby="menu-items-heading">
-        <div className={styles.sectionHeader}>
+        <div className={styles.sectionHeader} style={{ marginBottom: '20px' }}>
           <h2 className={styles.sectionTitle} id="menu-items-heading">
             <MenuOutlined /> Current Menu Items
           </h2>
