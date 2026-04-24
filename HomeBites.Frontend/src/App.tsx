@@ -3,6 +3,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { useAuth } from './hooks/useAuth'
 import LoginPage from './pages/LoginPage'
 import SignUpPage from './pages/SignUpPage'
+import RootLayout from './layouts/RootLayout'
 import DashboardLayout from './layouts/DashboardLayout'
 import MenuManagementPage from './pages/MenuManagementPage'
 import ProfileManagementPage from './pages/ProfileManagementPage'
@@ -48,24 +49,26 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 function AppContent() {
   return (
     <Routes>
-      {/* ── Public ── */}
-      <Route path="/"            element={<HomePage />} />
-      <Route path="/login"       element={<LoginPage />} />
-      <Route path="/register"    element={<SignUpPage />} />
-      <Route path="/family/:id"  element={<FamilyProfile />} />
+      <Route element={<RootLayout />}>
+        {/* ── Public ── */}
+        <Route path="/"            element={<HomePage />} />
+        <Route path="/login"       element={<LoginPage />} />
+        <Route path="/register"    element={<SignUpPage />} />
+        <Route path="/family/:id"  element={<FamilyProfile />} />
 
-      {/* ── Protected Dashboard ── */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <DashboardLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="menu" element={<MenuManagementPage />} />
-        <Route path="profile" element={<ProfileManagementPage />} />
-        <Route index element={<Navigate to="/dashboard/menu" replace />} />
+        {/* ── Protected Dashboard ── */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="menu" element={<MenuManagementPage />} />
+          <Route path="profile" element={<ProfileManagementPage />} />
+          <Route index element={<Navigate to="/dashboard/menu" replace />} />
+        </Route>
       </Route>
 
       {/* ── 404 ── */}

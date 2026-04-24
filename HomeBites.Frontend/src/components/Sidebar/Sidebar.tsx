@@ -6,7 +6,8 @@ import {
   LogoutOutlined,
   CheckCircleFilled,
   MenuFoldOutlined,
-  MenuUnfoldOutlined
+  MenuUnfoldOutlined,
+  HomeOutlined
 } from '@ant-design/icons'
 import { useAuth } from '../../hooks/useAuth'
 import styles from './Sidebar.module.scss'
@@ -72,6 +73,14 @@ export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
 
         {/* ── Navigation ── */}
         <nav className={styles.nav}>
+          <NavLink 
+            to="/" 
+            className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
+            title={collapsed ? "Home Page" : ""}
+          >
+            <HomeOutlined className={styles.navIcon} />
+            {!collapsed && <span>Home Page</span>}
+          </NavLink>
           <NavLink 
             to="/dashboard/profile" 
             className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}

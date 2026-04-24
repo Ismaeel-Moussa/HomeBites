@@ -9,7 +9,8 @@ public interface IDishService
 {
     Task<IEnumerable<DishDto>> GetDishesAsync();
     Task<IEnumerable<DishDto>> SearchDishesAsync(string? q, int? categoryId);
-    Task<Dish> CreateDishAsync(CreateDishRequest request);
+    Task<IEnumerable<DishDto>> GetDishesByFamilyAsync(int familyId);
+    Task<Dish> CreateDishAsync(CreateDishRequest request, int familyId);
     Task<Dish?> UpdateDishAsync(int id, UpdateDishRequest request);
     Task<bool> DeleteDishAsync(int id);
 }
@@ -39,7 +40,13 @@ public class DishService : IDishService
         return dishes.Select(MapToDto);
     }
 
-    public async Task<Dish> CreateDishAsync(CreateDishRequest request)
+    public async Task<IEnumerable<DishDto>> GetDishesByFamilyAsync(int familyId)
+    {
+        var dishes = await _repository.GetDishesWithDetailsAsync();
+        return dishes.Where(d => d.FamilyId == familyId).Select(MapToDto);
+    }
+
+    public async Task<Dish> CreateDishAsync(CreateDishRequest request, int familyId)
     {
         var imageUrl = await _photoService.SavePhotoAsync(request.File, "dishes");
         
@@ -52,7 +59,7 @@ public class DishService : IDishService
             Description = request.Description,
             Price = request.Price,
             ImageUrl = imageUrl,
-            FamilyId = request.FamilyId,
+            FamilyId = familyId,
             CategoryId = request.CategoryId
         };
 

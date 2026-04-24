@@ -1,8 +1,12 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using BusinessLayer.DTOs;
 using BusinessLayer.Services;
+using DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
@@ -11,10 +15,12 @@ namespace API.Controllers;
 public class DishesController : ControllerBase
 {
     private readonly IDishService _dishService;
+    private readonly AppDbContext _dbContext;
 
-    public DishesController(IDishService dishService)
+    public DishesController(IDishService dishService, AppDbContext dbContext)
     {
         _dishService = dishService;
+        _dbContext = dbContext;
     }
 
     // GET: api/dishes
@@ -33,15 +39,36 @@ public class DishesController : ControllerBase
         return Ok(results);
     }
 
+    // GET: api/dishes/mine  — returns only the authenticated family's dishes
+    [HttpGet("mine")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "FamilyOnly")]
+    public async Task<IActionResult> GetMyDishes()
+    {
+        var userIdClaim = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+        if (userIdClaim == null || !int.TryParse(userIdClaim, out int userId)) return Unauthorized();
+
+        var family = await _dbContext.Families.FirstOrDefaultAsync(f => f.UserId == userId);
+        if (family == null) return NotFound("Family profile not found.");
+
+        var dishes = await _dishService.GetDishesByFamilyAsync(family.Id);
+        return Ok(dishes);
+    }
+
     // POST: api/dishes
     [HttpPost]
     [Consumes("multipart/form-data")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "FamilyOnly")]
     public async Task<IActionResult> CreateDish([FromForm] CreateDishRequest request)
     {
+        var userIdClaim = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+        if (userIdClaim == null || !int.TryParse(userIdClaim, out int userId)) return Unauthorized();
+
+        var family = await _dbContext.Families.FirstOrDefaultAsync(f => f.UserId == userId);
+        if (family == null) return NotFound("Family profile not found.");
+
         try
         {
-            var dish = await _dishService.CreateDishAsync(request);
+            var dish = await _dishService.CreateDishAsync(request, family.Id);
             return Ok(dish);
         }
         catch (Exception ex)
