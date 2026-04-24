@@ -15,27 +15,6 @@ import './App.scss'
 // Each page will be built and imported by the respective team member.
 // For now, these are lightweight stubs so the router works immediately.
 
-const PlaceholderPage = ({ name }: { name: string }) => (
-  <div
-    style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '60vh',
-      gap: '1rem',
-      fontFamily: 'var(--font-headline)',
-      color: 'var(--color-on-surface-variant)',
-    }}
-  >
-    <span style={{ fontSize: '3rem' }}>🍽️</span>
-    <h2 style={{ fontSize: '1.5rem', color: 'var(--color-primary)' }}>{name}</h2>
-    <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-on-surface-variant)' }}>
-      This page is under construction.
-    </p>
-  </div>
-)
-
 // ─── Simple Auth Guard ─────────────────────────────────────────────────────
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth()
