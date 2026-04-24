@@ -1,10 +1,9 @@
 import { NavLink } from 'react-router-dom'
-import { Layout, Button, Avatar } from 'antd'
+import { Layout, Button } from 'antd'
 import { 
   UserOutlined, 
   BookOutlined, 
   LogoutOutlined,
-  CheckCircleFilled,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   HomeOutlined
@@ -21,12 +20,7 @@ interface SidebarProps {
 
 export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
   const { user, logout } = useAuth()
-  
-  // Resolve full URL for the profile image
-  const apiBase = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'
-  const fullProfileUrl = user?.profileImageUrl 
-    ? (user.profileImageUrl.startsWith('http') ? user.profileImageUrl : `${apiBase}/${user.profileImageUrl}`)
-    : undefined
+
 
   return (
     <Sider 
@@ -37,38 +31,14 @@ export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
       theme="light"
     >
       <div className={styles.container}>
-        {/* ── Brand Header ── */}
-        <div className={styles.brand}>
-          <div className={styles.logoBox}>
-            <span className={styles.logoIcon}>🍽️</span>
-          </div>
-          {!collapsed && <span className={styles.brandName}>HomeBites</span>}
-          
+        {/* ── Sidebar Controls ── */}
+        <div className={styles.brand} style={{ padding: '1rem', display: 'flex', justifyContent: collapsed ? 'center' : 'flex-end' }}>
           <Button 
             type="text" 
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} 
             onClick={() => onCollapse(!collapsed)}
             className={styles.toggleBtn}
           />
-        </div>
-
-        {/* ── User Profile Card ── */}
-        <div className={styles.userCard}>
-          <Avatar 
-            size={collapsed ? 40 : 64} 
-            src={fullProfileUrl} 
-            icon={<UserOutlined />}
-            className={styles.avatar}
-          />
-          {!collapsed && (
-            <div className={styles.userInfo}>
-              <h3 className={styles.userName}>{user?.name || 'Home Cook'}</h3>
-              <div className={styles.badge}>
-                <CheckCircleFilled className={styles.badgeIcon} />
-                <span>Verified Home Cook</span>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* ── Navigation ── */}
