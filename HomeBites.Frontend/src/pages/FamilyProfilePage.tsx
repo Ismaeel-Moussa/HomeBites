@@ -27,11 +27,10 @@ const FamilyProfilePage: React.FC = () => {
   const { family, loading, error } = useFamilyProfile(familyId)
   const [activeTab, setActiveTab] = useState<string>(ALL_TAB)
 
-  // Derive unique category tabs from dishes
+  // Always show all main categories as tabs
   const tabs = useMemo(() => {
-    if (!family?.dishes.length) return []
-    const cats = Array.from(new Set(family.dishes.map(d => d.categoryName))).sort()
-    return cats.length > 1 ? [ALL_TAB, ...cats] : cats
+    if (!family) return []
+    return [ALL_TAB, 'Appetizers', 'Desserts', 'Drinks', 'Mains']
   }, [family])
 
   const filteredDishes = useMemo(() => {
