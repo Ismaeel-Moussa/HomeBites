@@ -19,8 +19,8 @@ export default function RootLayout() {
           <Sidebar collapsed={collapsed} onCollapse={setCollapsed} />
         )}
         <Layout style={{ 
-          marginLeft: isAuthenticated ? (collapsed ? 80 : 280) : 0, 
-          transition: 'all 0.2s',
+          marginLeft: isAuthenticated ? (collapsed ? 72 : 260) : 0,
+          transition: 'margin-left 280ms cubic-bezier(0.4, 0, 0.2, 1)',
           minHeight: 'calc(100vh - 64px)',
           background: 'var(--color-surface)' 
         }}>
