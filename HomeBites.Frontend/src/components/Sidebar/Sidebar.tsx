@@ -23,23 +23,24 @@ export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
 
   return (
     <Sider
-      width={260}
-      collapsedWidth={72}
+      width={250}
+      collapsedWidth={85}
       collapsed={collapsed}
       className={`${styles.sider} ${collapsed ? styles.collapsed : ''}`}
       theme="light"
+      style={{ marginTop: '64px' }}
     >
       <div className={styles.container}>
 
-        {/* ── Brand / Header — always visible ── */}
-        <div className={styles.brand}>
-          <span className={styles.brandIcon}>🍽️</span>
-          <span className={styles.brandText}>HomeBites</span>
+        {/* ── Toggle Button ── */}
+        <div className={styles.brand} style={{ margin: "5px 0"}}>
+
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => onCollapse(!collapsed)}
             className={styles.toggleBtn}
+            style={{position: 'absolute', left: collapsed ? '20px' : '25px'}}
           />
         </div>
 
@@ -74,10 +75,7 @@ export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
               <span className={styles.navLabel}>Menu</span>
             </NavLink>
           </Tooltip>
-        </nav>
-
-        {/* ── Footer / Logout ── */}
-        <div className={styles.footer}>
+        <div className={styles.footer} style={{marginTop: '20px'}}>
           <Tooltip title={collapsed ? 'Sign Out' : ''} placement="right">
             <Button
               type="text"
@@ -89,7 +87,11 @@ export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
               <span className={styles.navLabel}>Sign Out</span>
             </Button>
           </Tooltip>
+
         </div>
+        </nav>
+
+
 
       </div>
     </Sider>
