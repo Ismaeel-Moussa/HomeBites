@@ -11,5 +11,6 @@ public class DishDto
     public string CategoryName { get; set; } = string.Empty;
     public int FamilyId { get; set; }
     public string FamilyName { get; set; } = string.Empty;
+    public string? FamilyProfileImageUrl { get; set; }
     public string WhatsAppNumber { get; set; } = string.Empty;
 }

@@ -6,6 +6,7 @@ import SignUpPage from './pages/SignUpPage'
 import DashboardLayout from './layouts/DashboardLayout'
 import MenuManagementPage from './pages/MenuManagementPage'
 import ProfileManagementPage from './pages/ProfileManagementPage'
+import HomePage from './pages/HomePage'
 import './App.scss'
 
 // ─── Page Placeholders ─────────────────────────────────────────────────────
@@ -34,8 +35,6 @@ const PlaceholderPage = ({ name }: { name: string }) => (
 )
 
 // ─── Public Pages ──────────────────────────────────────────────────────────
-// Owner: Ali Shwail
-const Home = () => <PlaceholderPage name="Home — Browse Dishes" />
 
 // Owner: Omar
 const FamilyProfile = () => <PlaceholderPage name="Family Profile & Menu" />
@@ -50,7 +49,7 @@ function AppContent() {
   return (
     <Routes>
       {/* ── Public ── */}
-      <Route path="/"            element={<Home />} />
+      <Route path="/"            element={<HomePage />} />
       <Route path="/login"       element={<LoginPage />} />
       <Route path="/register"    element={<SignUpPage />} />
       <Route path="/family/:id"  element={<FamilyProfile />} />
