@@ -75,7 +75,7 @@ export default function Sidebar({ collapsed, onCollapse }: SidebarProps) {
               <span className={styles.navLabel}>Menu</span>
             </NavLink>
           </Tooltip>
-        <div className={styles.footer} style={{marginTop: '20px'}}>
+        <div className={styles.footer} style={{position: 'fixed',bottom: '20px',width: collapsed ? '53px' : '213px'}}>
           <Tooltip title={collapsed ? 'Sign Out' : ''} placement="right">
             <Button
               type="text"

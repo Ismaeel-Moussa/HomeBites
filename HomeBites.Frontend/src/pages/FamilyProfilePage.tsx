@@ -8,6 +8,17 @@ import styles from './FamilyProfilePage.module.scss'
 
 const ALL_TAB = 'All'
 
+const getCategoryEmoji = (category: string) => {
+  switch (category.toLowerCase()) {
+    case 'drinks': return '🥤';
+    case 'appetizers': return '🥗';
+    case 'mains': return '🍲';
+    case 'desserts': return '🍰';
+    case 'all': return '🍴';
+    default: return '🍴';
+  }
+}
+
 const FamilyProfilePage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -16,11 +27,10 @@ const FamilyProfilePage: React.FC = () => {
   const { family, loading, error } = useFamilyProfile(familyId)
   const [activeTab, setActiveTab] = useState<string>(ALL_TAB)
 
-  // Derive unique category tabs from dishes
+  // Always show all main categories as tabs
   const tabs = useMemo(() => {
-    if (!family?.dishes.length) return []
-    const cats = Array.from(new Set(family.dishes.map(d => d.categoryName))).sort()
-    return cats.length > 1 ? [ALL_TAB, ...cats] : cats
+    if (!family) return []
+    return [ALL_TAB, 'Appetizers', 'Desserts', 'Drinks', 'Mains']
   }, [family])
 
   const filteredDishes = useMemo(() => {
@@ -184,7 +194,7 @@ const FamilyProfilePage: React.FC = () => {
           Array.from(dishesByCategory.entries()).map(([category, dishes]) => (
             <section key={category} className={styles.categorySection}>
               <h2 className={`text-headline-md ${styles.categoryTitle}`}>
-                <span className={styles.categoryIcon}>🍴</span>
+                <span className={styles.categoryIcon}>{getCategoryEmoji(category)}</span>
                 {category}
               </h2>
               <div className={styles.dishGrid}>
@@ -195,12 +205,18 @@ const FamilyProfilePage: React.FC = () => {
             </section>
           ))
         ) : (
-          // Specific tab — flat grid, no heading (tab label makes it obvious)
-          <div className={styles.dishGrid}>
-            {filteredDishes.map(dish => (
-              <DishCard key={dish.id} dish={dish} showFamily={false} />
-            ))}
-          </div>
+          // Specific tab — flat grid with a heading
+          <section className={styles.categorySection}>
+            <h2 className={`text-headline-md ${styles.categoryTitle}`}>
+              <span className={styles.categoryIcon}>{getCategoryEmoji(activeTab)}</span>
+              {activeTab}
+            </h2>
+            <div className={styles.dishGrid}>
+              {filteredDishes.map(dish => (
+                <DishCard key={dish.id} dish={dish} showFamily={false} />
+              ))}
+            </div>
+          </section>
         )}
       </main>
     </div>

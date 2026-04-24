@@ -228,7 +228,7 @@ export const DishModal: React.FC<DishModalProps> = ({ dish, onClose, onSuccess }
 
             <div className={styles.field}>
               <label className={styles.label} htmlFor="dish-price">
-                Price ($) <span className={styles.required}>*</span>
+                Price (₺) <span className={styles.required}>*</span>
               </label>
               <input
                 id="dish-price"

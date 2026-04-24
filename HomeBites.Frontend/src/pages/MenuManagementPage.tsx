@@ -191,7 +191,7 @@ export default function MenuManagementPage() {
                       loading="lazy"
                     />
                     <span className={styles.priceBadge}>
-                      ${dish.price.toFixed(2)}
+                      ₺{dish.price.toFixed(2)}
                     </span>
                   </div>
 
