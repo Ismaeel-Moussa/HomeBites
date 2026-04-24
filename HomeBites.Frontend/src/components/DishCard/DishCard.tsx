@@ -16,7 +16,7 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, showFamily = true }) =
   const profileUrl = dish.familyProfileImageUrl ? `${IMAGE_BASE_URL}/${dish.familyProfileImageUrl}` : 'https://placehold.co/100x100/ffc5ac/7d2f00?text=F'
 
   const handleWhatsApp = () => {
-    const message = `Hello ${dish.familyName}, I would like to order: ${dish.name} (Price: $${dish.price})`
+    const message = `Hello ${dish.familyName}, I would like to order: ${dish.name} (Price: ₺${dish.price})`
     const url = `https://wa.me/${dish.whatsAppNumber}?text=${encodeURIComponent(message)}`
     window.open(url, '_blank')
   }
@@ -33,7 +33,7 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, showFamily = true }) =
       <div className={styles.content}>
         <div className={styles.header}>
           <h3 className="text-headline-md">{dish.name}</h3>
-          <span className={`text-headline-md gradient-text ${styles.price}`}>${dish.price.toFixed(2)}</span>
+          <span className={`text-headline-md gradient-text ${styles.price}`}>₺{dish.price.toFixed(2)}</span>
         </div>
         
         {dish.description && <p className={`text-body-md text-muted ${styles.description}`}>{dish.description}</p>}
