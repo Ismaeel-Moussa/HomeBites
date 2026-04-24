@@ -18,9 +18,16 @@ public class FamiliesController : ControllerBase
     }
 
     // GET: api/families
+    // GET: api/families?category=Traditional
     [HttpGet]
-    public async Task<IActionResult> GetAllFamilies()
+    public async Task<IActionResult> GetAllFamilies([FromQuery] string? category)
     {
+        if (!string.IsNullOrWhiteSpace(category))
+        {
+            var filtered = await _familyService.GetFamiliesByCategoryAsync(category);
+            return Ok(filtered);
+        }
+
         var families = await _familyService.GetAllFamiliesAsync();
         return Ok(families);
     }

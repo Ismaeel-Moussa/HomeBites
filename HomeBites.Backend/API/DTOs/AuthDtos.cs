@@ -10,6 +10,7 @@ public class RegisterFamilyRequest
     public string WhatsAppNumber { get; set; } = string.Empty;
     public string? Location { get; set; }
     public string? Bio { get; set; }
+    public string? KitchenCategory { get; set; }
     public IFormFile? ProfileImage { get; set; }
 }
 

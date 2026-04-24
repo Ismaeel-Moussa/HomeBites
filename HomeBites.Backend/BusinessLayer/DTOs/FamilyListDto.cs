@@ -7,4 +7,5 @@ public class FamilyListDto
     public string? Location { get; set; }
     public string? Bio { get; set; }
     public string? ProfileImageUrl { get; set; }
+    public string? KitchenCategory { get; set; }
 }

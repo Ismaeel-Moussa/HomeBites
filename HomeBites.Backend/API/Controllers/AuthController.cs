@@ -85,7 +85,8 @@ public class AuthController : ControllerBase
             WhatsAppNumber = request.WhatsAppNumber,
             Location = request.Location,
             Bio = request.Bio,
-            ProfileImageUrl = profileImageUrl
+            ProfileImageUrl = profileImageUrl,
+            KitchenCategory = request.KitchenCategory
         };
 
         _dbContext.Families.Add(family);
