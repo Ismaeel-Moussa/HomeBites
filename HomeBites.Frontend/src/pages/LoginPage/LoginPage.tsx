@@ -4,9 +4,8 @@ import { useMutation } from '@tanstack/react-query'
 import { Form, Input, Button, Alert } from 'antd'
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
 import axios from 'axios'
-import { loginApi } from '../api/auth'
-import type { LoginRequest, ApiError } from '../api/auth'
-import { useAuth } from '../hooks/useAuth'
+import { type LoginRequest, type ApiError, loginApi } from '../../api/auth'
+import { useAuth } from '../../hooks/useAuth'
 import styles from './LoginPage.module.scss'
 
 // ── Error helper ───────────────────────────────────────────────────────────

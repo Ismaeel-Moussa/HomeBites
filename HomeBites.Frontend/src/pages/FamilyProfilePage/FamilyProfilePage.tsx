@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useFamilyProfile } from '../hooks/useFamilyProfile'
-import { DishCard } from '../components/DishCard/DishCard'
-import { IMAGE_BASE_URL } from '../api/apiClient'
+import { useFamilyProfile } from '../../hooks/useFamilyProfile'
+import { DishCard } from '../../components/DishCard/DishCard'
+import { IMAGE_BASE_URL } from '../../api/apiClient'
 import { MessageOutlined, EnvironmentOutlined, ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons'
 import styles from './FamilyProfilePage.module.scss'
 
