@@ -8,5 +8,6 @@ public class FamilyDetailDto
     public string? Bio { get; set; }
     public string? ProfileImageUrl { get; set; }
     public string WhatsAppNumber { get; set; } = string.Empty;
+    public string? KitchenCategory { get; set; }
     public List<DishDto> Dishes { get; set; } = new();
 }

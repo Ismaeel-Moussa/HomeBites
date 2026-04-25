@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { SaveOutlined, CameraOutlined, EnvironmentOutlined } from '@ant-design/icons'
+import { Select } from 'antd'
 import { useAuth } from '../../hooks/useAuth'
 import { getFamilyProfile } from '../../api/families'
 import { updateFamilyProfile } from '../../api/families'
@@ -18,6 +19,7 @@ interface FormValues {
   whatsAppNumber: string
   bio: string
   location: string
+  kitchenCategory: string
 }
 
 type ToastState = { message: string; type: 'success' | 'error' } | null
@@ -58,7 +60,7 @@ export default function ProfileManagementPage() {
   const [toast, setToast] = useState<ToastState>(null)
 
   // ── Form values ────────────────────────────────────────────────────────
-  const emptyForm: FormValues = { name: '', whatsAppNumber: '', bio: '', location: '' }
+  const emptyForm: FormValues = { name: '', whatsAppNumber: '', bio: '', location: '', kitchenCategory: '' }
   const [form, setForm] = useState<FormValues>(emptyForm)
   const [initialForm, setInitialForm] = useState<FormValues>(emptyForm)
 
@@ -82,10 +84,11 @@ export default function ProfileManagementPage() {
     try {
       const data = await getFamilyProfile(familyId)
       const values: FormValues = {
-        name:           data.name           ?? '',
+        name:           data.name           ?? user?.name ?? '',
         whatsAppNumber: data.whatsAppNumber  ?? '',
         bio:            data.bio             ?? '',
         location:       data.location        ?? '',
+        kitchenCategory: data.kitchenCategory ?? '',
       }
       setForm(values)
       setInitialForm(values)
@@ -144,6 +147,7 @@ export default function ProfileManagementPage() {
         whatsAppNumber: form.whatsAppNumber  || undefined,
         location:       form.location,
         bio:            form.bio,
+        kitchenCategory: form.kitchenCategory || undefined,
         profileImage:   photoFile ?? undefined,
       }
       const updated = await updateFamilyProfile(familyId, token, payload)
@@ -159,6 +163,7 @@ export default function ProfileManagementPage() {
         whatsAppNumber: updated.whatsAppNumber  ?? '',
         bio:            updated.bio             ?? '',
         location:       updated.location        ?? '',
+        kitchenCategory: updated.kitchenCategory ?? '',
       }
       setForm(newValues)
       setInitialForm(newValues)
@@ -259,6 +264,7 @@ export default function ProfileManagementPage() {
                 value={form.name}
                 onChange={handleChange('name')}
                 disabled={saving}
+                autoFocus
               />
             </div>
 
@@ -279,6 +285,32 @@ export default function ProfileManagementPage() {
                   disabled={saving}
                 />
               </div>
+            </div>
+
+            {/* Kitchen Category */}
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="field-category">
+                Kitchen Category
+              </label>
+              <Select
+                id="field-category"
+                className={styles.antdSelect}
+                placeholder="Select a category"
+                value={form.kitchenCategory || undefined}
+                onChange={(value) => setForm(prev => ({ ...prev, kitchenCategory: value }))}
+                disabled={saving}
+                options={[
+                  { value: 'Traditional', label: 'Traditional' },
+                  { value: 'Arabian', label: 'Arabian' },
+                  { value: 'Turkish', label: 'Turkish' },
+                  { value: 'Bakery', label: 'Bakery' },
+                  { value: 'Dessert', label: 'Dessert' },
+                  { value: 'Vegan', label: 'Vegan' },
+                  { value: 'Grill', label: 'Grill' },
+                  { value: 'Italian', label: 'Italian' },
+                  { value: 'Seafood', label: 'Seafood' },
+                ]}
+              />
             </div>
 
             {/* Bio — full width */}

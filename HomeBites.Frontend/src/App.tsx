@@ -7,6 +7,7 @@ import DashboardLayout from './layouts/DashboardLayout'
 import MenuManagementPage from './pages/MenuManagementPage/MenuManagementPage'
 import ProfileManagementPage from './pages/ProfileManagementPage/ProfileManagementPage'
 import HomePage from './pages/HomePage/HomePage'
+import AllDishesPage from './pages/AllDishesPage/AllDishesPage'
 import './App.scss'
 import FamilyProfilePage from './pages/FamilyProfilePage/FamilyProfilePage'
 import LoginPage from './pages/LoginPage/LoginPage'
@@ -23,6 +24,7 @@ function AppContent() {
       <Route element={<RootLayout />}>
         {/* ── Public ── */}
         <Route path="/"            element={<HomePage />} />
+        <Route path="/dishes"      element={<AllDishesPage />} />
         <Route path="/login"       element={<LoginPage />} />
         <Route path="/register"    element={<SignUpPage />} />
         <Route path="/family/:id"  element={<FamilyProfilePage />} />

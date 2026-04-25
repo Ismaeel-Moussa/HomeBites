@@ -39,7 +39,10 @@ export default function Header({ onHamburgerClick, showHamburger }: HeaderProps)
           </div>
           <span className={styles.brandName}>HomeBites</span>
         </div>
-        <Link to="/" className={styles.navLink}>HomePage</Link>
+        <div className={styles.navLinks}>
+          <Link to="/" className={styles.navLink}>Kitchens</Link>
+          <Link to="/dishes" className={styles.navLink}>All Dishes</Link>
+        </div>
       </div>
 
       <div className={styles.right}>

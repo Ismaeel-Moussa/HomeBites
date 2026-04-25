@@ -18,6 +18,7 @@ export interface RegisterFamilyRequest {
   whatsAppNumber: string
   location?: string
   bio?: string
+  kitchenCategory?: string
   profileImage?: File
 }
 
@@ -58,6 +59,7 @@ export const registerFamilyApi = async (
   form.append('whatsAppNumber', data.whatsAppNumber)
   if (data.location) form.append('location', data.location)
   if (data.bio) form.append('bio', data.bio)
+  if (data.kitchenCategory) form.append('kitchenCategory', data.kitchenCategory)
   if (data.profileImage) form.append('profileImage', data.profileImage)
 
   const res = await api.post<RegisterSuccessResponse>(

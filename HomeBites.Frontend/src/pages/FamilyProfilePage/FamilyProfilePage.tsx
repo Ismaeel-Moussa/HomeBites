@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useFamilyProfile } from '../../hooks/useFamilyProfile'
-import { DishCard } from '../../components/DishCard/DishCard'
+import { ProfileDishCard } from '../../components/ProfileDishCard/ProfileDishCard'
 import { IMAGE_BASE_URL } from '../../api/apiClient'
 import { MessageOutlined, EnvironmentOutlined, ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons'
+import { Select } from 'antd'
 import styles from './FamilyProfilePage.module.scss'
 
 const ALL_TAB = 'All'
@@ -136,26 +137,45 @@ const FamilyProfilePage: React.FC = () => {
           {/* Info */}
           <h1 className={`text-display-md ${styles.familyName}`}>{family.name}</h1>
 
-          {family.location && (
-            <p className={`text-body-md text-muted ${styles.location}`}>
-              <EnvironmentOutlined className={styles.locationIcon} />
-              {family.location}
-            </p>
-          )}
+          {/* Details Row */}
+          <div className={styles.infoGrid} style={{ gap: '3rem' }}>
+            {family.kitchenCategory && (
+              <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Category</span>
+                <span className={styles.categoryBadge}>{family.kitchenCategory}</span>
+              </div>
+            )}
+            
+            {family.location && (
+              <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Location</span>
+                <span className={styles.infoValue}>
+                  <EnvironmentOutlined className={styles.infoIcon} />
+                  {family.location}
+                </span>
+              </div>
+            )}
+          </div>
 
           {family.bio && (
-            <p className={`text-body-lg ${styles.bio}`}>{family.bio}</p>
+            <div className={styles.bioSection}>
+              <span className={styles.infoLabel}>About Us</span>
+              <p className={styles.bioText}>{family.bio}</p>
+            </div>
           )}
 
-          {/* WhatsApp CTA */}
-          <button
-            id="family-profile-whatsapp-cta"
-            className={`btn-whatsapp ${styles.whatsappCta}`}
-            onClick={handleWhatsAppContact}
-          >
-            <MessageOutlined />
-            Contact via WhatsApp
-          </button>
+          {/* Contact Section */}
+          <div className={styles.contactSection}>
+             <span className={styles.infoLabel}>Contact</span>
+             <button
+               id="family-profile-whatsapp-cta"
+               className={`btn-whatsapp ${styles.whatsappCta}`}
+               onClick={handleWhatsAppContact}
+             >
+               <MessageOutlined />
+               Message on WhatsApp
+             </button>
+          </div>
         </div>
       </header>
 
@@ -163,7 +183,7 @@ const FamilyProfilePage: React.FC = () => {
       {tabs.length > 0 && (
         <nav className={`surface ${styles.tabBar}`} aria-label="Dish categories">
           <div className="container-narrow">
-            <ul className={styles.tabList} role="tablist">
+            <ul className={`${styles.tabList} ${styles.desktopOnly}`} role="tablist">
               {tabs.map(tab => (
                 <li key={tab} role="none">
                   <button
@@ -178,6 +198,15 @@ const FamilyProfilePage: React.FC = () => {
                 </li>
               ))}
             </ul>
+            <div className={styles.mobileOnly}>
+              <Select
+                value={activeTab}
+                onChange={setActiveTab}
+                options={tabs.map(tab => ({ label: tab, value: tab }))}
+                className={styles.mobileSelect}
+                dropdownStyle={{ zIndex: 1000 }}
+              />
+            </div>
           </div>
         </nav>
       )}
@@ -199,7 +228,7 @@ const FamilyProfilePage: React.FC = () => {
               </h2>
               <div className={styles.dishGrid}>
                 {dishes.map(dish => (
-                  <DishCard key={dish.id} dish={dish} showFamily={false} />
+                  <ProfileDishCard key={dish.id} dish={dish} />
                 ))}
               </div>
             </section>
@@ -213,7 +242,7 @@ const FamilyProfilePage: React.FC = () => {
             </h2>
             <div className={styles.dishGrid}>
               {filteredDishes.map(dish => (
-                <DishCard key={dish.id} dish={dish} showFamily={false} />
+                <ProfileDishCard key={dish.id} dish={dish} />
               ))}
             </div>
           </section>

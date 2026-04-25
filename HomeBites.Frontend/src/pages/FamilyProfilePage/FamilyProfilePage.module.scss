@@ -202,30 +202,99 @@
 .familyName {
   margin: 0;
 }
+ 
+.categoryBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-4);
+  background: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
 
-.location {
+.infoGrid {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  margin-top: var(--space-1);
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-1);
-  margin: 0;
 }
 
-.locationIcon {
+.infoLabel {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  opacity: 0.8;
+}
+
+.infoValue {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-on-surface);
+  font-weight: 500;
+}
+
+.infoIcon {
   color: var(--color-primary);
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 
-.bio {
+.bioSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
   max-width: 520px;
+  margin-top: var(--space-2);
+}
+
+.bioText {
   color: var(--color-on-surface-variant);
   margin: 0;
   line-height: 1.65;
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+.contactSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .whatsappCta {
-  margin-top: var(--space-2);
   padding: var(--space-3) var(--space-8);
   font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+  }
 }
 
 // ── Category Tab Bar ──────────────────────────────────────────────────────────
@@ -250,6 +319,43 @@
   }
 
   &::-webkit-scrollbar { display: none; }
+}
+
+.desktopOnly {
+  display: flex;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.mobileOnly {
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+    padding-inline: var(--space-4);
+  }
+}
+
+.mobileSelect {
+  width: 100%;
+  
+  :global(.ant-select-selector) {
+    height: 48px !important;
+    border-radius: var(--radius-full) !important;
+    display: flex !important;
+    align-items: center !important;
+    font-family: var(--font-body) !important;
+    font-size: 1rem !important;
+    border: 1.5px solid var(--color-outline-variant) !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(8px) !important;
+    box-shadow: var(--shadow-card) !important;
+  }
+
+  :global(.ant-select-selection-item) {
+    line-height: 48px !important;
+    font-weight: 600 !important;
+  }
 }
 
 .tab {
