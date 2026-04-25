@@ -91,9 +91,13 @@ builder.Services.AddSwaggerGen();
 // 3. Add CORS (Critical for React to talk to the API)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp",
-        policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5173" , "https://eathomebites.netlify.app"));
+    options.AddPolicy("AllowReactApp", policy => 
+        policy.WithOrigins("https://eathomebites.netlify.app") 
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials());
 });
+
 
 var app = builder.Build();
 
