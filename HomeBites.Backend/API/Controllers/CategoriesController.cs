@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 [ApiController]
-[Route("api/categories")]
+[Route("api/[controller]")]
 public class CategoriesController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
