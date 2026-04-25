@@ -26,7 +26,7 @@ const FamilyProfilePage: React.FC = () => {
   const familyId = Number(id)
 
   const { family, loading, error } = useFamilyProfile(familyId)
-  const [activeTab, setActiveTab] = useState<string>(ALL_TAB)
+  const [activeTab, setActiveTab] = useState<string>('Mains')
 
   // Always show all main categories as tabs
   const tabs = useMemo(() => {
