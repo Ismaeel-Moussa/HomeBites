@@ -101,8 +101,11 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // 4. Middlewares
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
+}
 
 app.UseStaticFiles(); // Essential for serving images from wwwroot
 app.UseCors("AllowReactApp");
