@@ -6,11 +6,14 @@ import styles from './HomePage.module.scss'
 
 const KITCHEN_CATEGORIES = [
   'Traditional',
+  'Arabian',
+  'Turkish',
   'Bakery',
+  'Dessert',
   'Vegan',
   'Grill',
   'Italian',
-  'Arabian'
+  'Seafood',
 ]
 
 const HomePage: React.FC = () => {
