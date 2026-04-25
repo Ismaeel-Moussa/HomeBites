@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using DataAccess.Identity;
 
 namespace DataAccess.Entities;
@@ -12,6 +12,7 @@ public class Family
     public string? Location { get; set; }
     public string? Bio {  get; set; }
     public string? ProfileImageUrl { get; set; }
+    public string? KitchenCategory { get; set; } // e.g. "Traditional", "Bakery", "Vegan", "Grill", "Italian", "Arabian"
 
     // Foreign Key to Identity User
     public int UserId { get; set; }

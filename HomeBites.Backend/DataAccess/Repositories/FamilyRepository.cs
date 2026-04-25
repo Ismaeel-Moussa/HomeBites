@@ -7,6 +7,7 @@ public interface IFamilyRepository : IGenericRepository<Family>
 {
     Task<Family?> GetFamilyWithDishesAsync(int id);
     Task<IEnumerable<Family>> SearchFamiliesAsync(string? searchTerm);
+    Task<IEnumerable<Family>> GetFamiliesByCategoryAsync(string? category);
 }
 
 public class FamilyRepository : GenericRepository<Family>, IFamilyRepository
@@ -30,6 +31,18 @@ public class FamilyRepository : GenericRepository<Family>, IFamilyRepository
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
             query = query.Where(f => f.Name.Contains(searchTerm));
+        }
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<IEnumerable<Family>> GetFamiliesByCategoryAsync(string? category)
+    {
+        var query = _dbSet.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(category))
+        {
+            query = query.Where(f => f.KitchenCategory == category);
         }
 
         return await query.ToListAsync();

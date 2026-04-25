@@ -11,4 +11,5 @@ public class UpdateFamilyRequest
 
     // Optional: only provide if replacing the profile image
     public IFormFile? ProfileImage { get; set; }
+    public string? KitchenCategory { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿using DataAccess.Entities;
+using DataAccess.Entities;
 using DataAccess.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -153,6 +153,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
                 Location = "Cairo",
                 Bio = "Traditional Egyptian home-cooked meals.",
                 ProfileImageUrl = null,
+                KitchenCategory = "Traditional",
                 UserId = familyUser1.Id
             },
             new Family
@@ -163,6 +164,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
                 Location = "Alexandria",
                 Bio = "Seafood specials from our family to yours.",
                 ProfileImageUrl = null,
+                KitchenCategory = "Grill",
                 UserId = familyUser2.Id
             },
             new Family
@@ -173,6 +175,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
                 Location = "Giza",
                 Bio = "Homemade desserts and baked goods.",
                 ProfileImageUrl = null,
+                KitchenCategory = "Bakery",
                 UserId = familyUser3.Id
             },
             new Family
@@ -183,6 +186,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
                 Location = "Mansoura",
                 Bio = "Grilled meats and hearty mains.",
                 ProfileImageUrl = null,
+                KitchenCategory = "Grill",
                 UserId = familyUser4.Id
             }
         );

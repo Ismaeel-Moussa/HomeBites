@@ -8,6 +8,7 @@ namespace BusinessLayer.Services;
 public interface IFamilyService
 {
     Task<IEnumerable<FamilyListDto>> GetAllFamiliesAsync();
+    Task<IEnumerable<FamilyListDto>> GetFamiliesByCategoryAsync(string? category);
     Task<IEnumerable<FamilyListDto>> SearchFamiliesAsync(string? searchTerm);
     Task<FamilyDetailDto?> GetFamilyDetailsAsync(int id);
     Task<UpdateFamilyResponseDto?> UpdateFamilyProfileAsync(int id, UpdateFamilyRequest request);
@@ -29,6 +30,12 @@ public class FamilyService : IFamilyService
     public async Task<IEnumerable<FamilyListDto>> GetAllFamiliesAsync()
     {
         var families = await _repository.GetAllAsync();
+        return families.Select(MapToListDto);
+    }
+
+    public async Task<IEnumerable<FamilyListDto>> GetFamiliesByCategoryAsync(string? category)
+    {
+        var families = await _repository.GetFamiliesByCategoryAsync(category);
         return families.Select(MapToListDto);
     }
 
@@ -84,6 +91,9 @@ public class FamilyService : IFamilyService
         if (request.Bio != null)
             family.Bio = request.Bio;
 
+        if (request.KitchenCategory != null)
+            family.KitchenCategory = request.KitchenCategory;
+
         if (request.ProfileImage != null && request.ProfileImage.Length > 0)
         {
             // Delete old profile image
@@ -111,7 +121,8 @@ public class FamilyService : IFamilyService
             Location = family.Location,
             Bio = family.Bio,
             ProfileImageUrl = family.ProfileImageUrl,
-            WhatsAppNumber = family.WhatsAppNumber
+            WhatsAppNumber = family.WhatsAppNumber,
+            KitchenCategory = family.KitchenCategory
         };
     }
 
@@ -123,7 +134,8 @@ public class FamilyService : IFamilyService
             Name = f.Name,
             Location = f.Location,
             Bio = f.Bio,
-            ProfileImageUrl = f.ProfileImageUrl
+            ProfileImageUrl = f.ProfileImageUrl,
+            KitchenCategory = f.KitchenCategory
         };
     }
 }
