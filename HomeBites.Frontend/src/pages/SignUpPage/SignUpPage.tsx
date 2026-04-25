@@ -187,11 +187,14 @@ export default function SignUpPage() {
                   placeholder="Select a category"
                   options={[
                     { value: 'Traditional', label: 'Traditional' },
+                    { value: 'Arabian', label: 'Arabian' },
+                    { value: 'Turkish', label: 'Turkish' },
                     { value: 'Bakery', label: 'Bakery' },
+                    { value: 'Dessert', label: 'Dessert' },
                     { value: 'Vegan', label: 'Vegan' },
                     { value: 'Grill', label: 'Grill' },
                     { value: 'Italian', label: 'Italian' },
-                    { value: 'Arabian', label: 'Arabian' },
+                    { value: 'Seafood', label: 'Seafood' },
                   ]}
                 />
               </Form.Item>

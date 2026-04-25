@@ -299,11 +299,14 @@ export default function ProfileManagementPage() {
               >
                 <option value="" disabled>Select a category</option>
                 <option value="Traditional">Traditional</option>
+                <option value="Arabian">Arabian</option>
+                <option value="Turkish">Turkish</option>
                 <option value="Bakery">Bakery</option>
+                <option value="Dessert">Dessert</option>
                 <option value="Vegan">Vegan</option>
                 <option value="Grill">Grill</option>
                 <option value="Italian">Italian</option>
-                <option value="Arabian">Arabian</option>
+                <option value="Seafood">Seafood</option>
               </select>
             </div>
 
