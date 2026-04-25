@@ -4,7 +4,7 @@ import type { Dish } from '../../hooks/useDishes'
 import { useCategories } from '../../hooks/useCategories'
 import { useAuth } from '../../hooks/useAuth'
 import { createDish, updateDish } from '../../api/dishes'
-import { IMAGE_BASE_URL } from '../../api/apiClient'
+import { getImageUrl } from '../../api/apiClient'
 import styles from './DishModal.module.scss'
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -39,7 +39,7 @@ export const DishModal: React.FC<DishModalProps> = ({ dish, onClose, onSuccess }
   })
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(
-    dish?.imageUrl ? `${IMAGE_BASE_URL}/${dish.imageUrl}` : null,
+    dish?.imageUrl ? getImageUrl(dish.imageUrl) : null,
   )
   const [dragOver, setDragOver] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -55,7 +55,7 @@ export const DishModal: React.FC<DishModalProps> = ({ dish, onClose, onSuccess }
       price: dish?.price != null ? String(dish.price) : '',
       categoryId: dish?.categoryId != null ? String(dish.categoryId) : '',
     })
-    setPreviewUrl(dish?.imageUrl ? `${IMAGE_BASE_URL}/${dish.imageUrl}` : null)
+    setPreviewUrl(dish?.imageUrl ? getImageUrl(dish.imageUrl) : null)
     setImageFile(null)
     setError(null)
   }, [dish])

@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Dish } from '../../hooks/useDishes'
-import { IMAGE_BASE_URL } from '../../api/apiClient'
+import { getImageUrl } from '../../api/apiClient'
 import styles from './ProfileDishCard.module.scss'
 import { MessageFilled } from '@ant-design/icons'
 
@@ -9,7 +9,7 @@ interface ProfileDishCardProps {
 }
 
 export const ProfileDishCard: React.FC<ProfileDishCardProps> = ({ dish }) => {
-  const imageUrl = dish.imageUrl ? `${IMAGE_BASE_URL}/${dish.imageUrl}` : 'https://placehold.co/600x400/f2f7ff/904800?text=No+Image'
+  const imageUrl = dish.imageUrl ? getImageUrl(dish.imageUrl) : 'https://placehold.co/600x400/f2f7ff/904800?text=No+Image'
 
   const handleWhatsApp = () => {
     const message = `Hello ${dish.familyName}, I would like to order: ${dish.name} (Price: ₺${dish.price})`

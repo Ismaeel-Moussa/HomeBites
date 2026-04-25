@@ -1,33 +1,43 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace BusinessLayer.Services;
 
 public class PhotoService
 {
-    private readonly IWebHostEnvironment _environment;
+    private readonly BlobServiceClient _blobServiceClient;
+    private readonly string _containerName;
 
-    public PhotoService(IWebHostEnvironment environment)
+    public PhotoService(IConfiguration configuration)
     {
-        _environment = environment;
+        var connectionString = configuration["AzureBlobStorage:ConnectionString"];
+        _containerName = configuration["AzureBlobStorage:ContainerName"] ?? "homebites-uploads";
+
+        if (!string.IsNullOrEmpty(connectionString))
+        {
+            _blobServiceClient = new BlobServiceClient(connectionString);
+        }
     }
 
     public async Task<string?> SavePhotoAsync(IFormFile file, string subFolder)
     {
-        if (file == null || file.Length == 0) return null;
+        if (file == null || file.Length == 0 || _blobServiceClient == null) return null;
 
-        // 1. Define where to save the file
-        var wwwRootPath = _environment.WebRootPath;
-        var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-        var path = Path.Combine(wwwRootPath, "images", subFolder, fileName);
+        var blobContainerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+        
+        // Ensure container exists and is public
+        await blobContainerClient.CreateIfNotExistsAsync(PublicAccessType.Blob);
 
-        // 2. Save the file to the hard drive
-        using (var fileStream = new FileStream(path, FileMode.Create))
+        var fileName = $"{subFolder}/{Guid.NewGuid()}_{file.FileName}";
+        var blobClient = blobContainerClient.GetBlobClient(fileName);
+
+        using (var stream = file.OpenReadStream())
         {
-            await file.CopyToAsync(fileStream);
+            await blobClient.UploadAsync(stream, new BlobHttpHeaders { ContentType = file.ContentType });
         }
 
-        // 3. Return the relative URL for the database
-        return $"/images/{subFolder}/{fileName}";
+        return blobClient.Uri.ToString();
     }
 }

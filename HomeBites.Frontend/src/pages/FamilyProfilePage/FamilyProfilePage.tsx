@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useFamilyProfile } from '../../hooks/useFamilyProfile'
 import { ProfileDishCard } from '../../components/ProfileDishCard/ProfileDishCard'
-import { IMAGE_BASE_URL } from '../../api/apiClient'
+import { getImageUrl } from '../../api/apiClient'
 import { MessageOutlined, EnvironmentOutlined, ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons'
 import { Select } from 'antd'
 import styles from './FamilyProfilePage.module.scss'
@@ -51,7 +51,7 @@ const FamilyProfilePage: React.FC = () => {
   }, [filteredDishes])
 
   const profileImageUrl = family?.profileImageUrl
-    ? `${IMAGE_BASE_URL}/${family.profileImageUrl}`
+    ? getImageUrl(family.profileImageUrl)
     : 'https://placehold.co/160x160/ffc5ac/7d2f00?text=🍽'
 
   const handleWhatsAppContact = () => {
