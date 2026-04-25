@@ -42,14 +42,24 @@ const NavItems = ({ collapsed, onItemClick }: { collapsed: boolean; onItemClick?
 
       {/* ── Navigation ── */}
       <nav className={styles.nav}>
-        <Tooltip title={collapsed ? 'Home Page' : ''} placement="right">
+        <Tooltip title={collapsed ? 'Kitchens' : ''} placement="right">
           <NavLink
             to="/"
             onClick={onItemClick}
             className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
           >
             <HomeOutlined className={styles.navIcon} />
-            <span className={styles.navLabel}>Home Page</span>
+            <span className={styles.navLabel}>Kitchens</span>
+          </NavLink>
+        </Tooltip>
+        <Tooltip title={collapsed ? 'All Dishes' : ''} placement="right">
+          <NavLink
+            to="/dishes"
+            onClick={onItemClick}
+            className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
+          >
+            <BookOutlined className={styles.navIcon} />
+            <span className={styles.navLabel}>All Dishes</span>
           </NavLink>
         </Tooltip>
 
@@ -153,16 +163,6 @@ export default function Sidebar({ collapsed, onCollapse, isMobile, mobileOpen, o
 
         {/* ── Navigation ── */}
         <nav className={styles.nav}>
-          <Tooltip title={collapsed ? 'Home Page' : ''} placement="right">
-            <NavLink
-              to="/"
-              className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
-            >
-              <HomeOutlined className={styles.navIcon} />
-              <span className={styles.navLabel}>Home Page</span>
-            </NavLink>
-          </Tooltip>
-
           <Tooltip title={collapsed ? 'My Profile' : ''} placement="right">
             <NavLink
               to={user?.familyId ? `/family/${user.familyId}` : '/dashboard/profile'}

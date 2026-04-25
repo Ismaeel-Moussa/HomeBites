@@ -58,6 +58,7 @@ public class FamilyService : IFamilyService
             Bio = family.Bio,
             ProfileImageUrl = family.ProfileImageUrl,
             WhatsAppNumber = family.WhatsAppNumber,
+            KitchenCategory = family.KitchenCategory,
             Dishes = family.Dishes.Select(d => new DishDto
             {
                 Id = d.Id,

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { SaveOutlined, CameraOutlined, EnvironmentOutlined } from '@ant-design/icons'
+import { Select } from 'antd'
 import { useAuth } from '../../hooks/useAuth'
 import { getFamilyProfile } from '../../api/families'
 import { updateFamilyProfile } from '../../api/families'
@@ -83,7 +84,7 @@ export default function ProfileManagementPage() {
     try {
       const data = await getFamilyProfile(familyId)
       const values: FormValues = {
-        name:           data.name           ?? '',
+        name:           data.name           ?? user?.name ?? '',
         whatsAppNumber: data.whatsAppNumber  ?? '',
         bio:            data.bio             ?? '',
         location:       data.location        ?? '',
@@ -263,6 +264,7 @@ export default function ProfileManagementPage() {
                 value={form.name}
                 onChange={handleChange('name')}
                 disabled={saving}
+                autoFocus
               />
             </div>
 
@@ -290,24 +292,25 @@ export default function ProfileManagementPage() {
               <label className={styles.label} htmlFor="field-category">
                 Kitchen Category
               </label>
-              <select
+              <Select
                 id="field-category"
-                className={styles.input}
-                value={form.kitchenCategory}
-                onChange={(e) => setForm(prev => ({ ...prev, kitchenCategory: e.target.value }))}
+                className={styles.antdSelect}
+                placeholder="Select a category"
+                value={form.kitchenCategory || undefined}
+                onChange={(value) => setForm(prev => ({ ...prev, kitchenCategory: value }))}
                 disabled={saving}
-              >
-                <option value="" disabled>Select a category</option>
-                <option value="Traditional">Traditional</option>
-                <option value="Arabian">Arabian</option>
-                <option value="Turkish">Turkish</option>
-                <option value="Bakery">Bakery</option>
-                <option value="Dessert">Dessert</option>
-                <option value="Vegan">Vegan</option>
-                <option value="Grill">Grill</option>
-                <option value="Italian">Italian</option>
-                <option value="Seafood">Seafood</option>
-              </select>
+                options={[
+                  { value: 'Traditional', label: 'Traditional' },
+                  { value: 'Arabian', label: 'Arabian' },
+                  { value: 'Turkish', label: 'Turkish' },
+                  { value: 'Bakery', label: 'Bakery' },
+                  { value: 'Dessert', label: 'Dessert' },
+                  { value: 'Vegan', label: 'Vegan' },
+                  { value: 'Grill', label: 'Grill' },
+                  { value: 'Italian', label: 'Italian' },
+                  { value: 'Seafood', label: 'Seafood' },
+                ]}
+              />
             </div>
 
             {/* Bio — full width */}
