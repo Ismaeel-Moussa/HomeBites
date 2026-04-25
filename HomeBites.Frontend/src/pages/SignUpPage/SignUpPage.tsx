@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import { Form, Input, Button, Alert, Upload } from 'antd'
+import { Form, Input, Button, Alert, Upload, Select } from 'antd'
 import { UploadOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
 import type { UploadFile } from 'antd'
 import axios from 'axios'
@@ -16,6 +16,7 @@ interface SignUpFormValues {
   email: string
   whatsAppNumber: string
   location?: string
+  kitchenCategory?: string
   bio?: string
   password: string
   confirmPassword: string
@@ -62,6 +63,7 @@ export default function SignUpPage() {
       password: values.password,
       whatsAppNumber: values.whatsAppNumber,
       location: values.location,
+      kitchenCategory: values.kitchenCategory,
       bio: values.bio,
       profileImage: fileList[0]?.originFileObj as File | undefined,
     }
@@ -176,6 +178,23 @@ export default function SignUpPage() {
                   </Upload>
                 </Form.Item>
               </div>
+
+              {/* ── Kitchen Category ── */}
+              <Form.Item name="kitchenCategory" label={<>Kitchen Category <span className={styles.optional}>(optional)</span></>}>
+                <Select
+                  id="signup-category"
+                  size="large"
+                  placeholder="Select a category"
+                  options={[
+                    { value: 'Traditional', label: 'Traditional' },
+                    { value: 'Bakery', label: 'Bakery' },
+                    { value: 'Vegan', label: 'Vegan' },
+                    { value: 'Grill', label: 'Grill' },
+                    { value: 'Italian', label: 'Italian' },
+                    { value: 'Arabian', label: 'Arabian' },
+                  ]}
+                />
+              </Form.Item>
 
               {/* ── Bio ── */}
               <Form.Item name="bio" label={<>About your kitchen <span className={styles.optional}>(optional)</span></>}>

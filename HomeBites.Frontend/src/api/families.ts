@@ -10,6 +10,7 @@ export interface FamilyProfile {
   bio?: string
   profileImageUrl?: string
   whatsAppNumber: string
+  kitchenCategory?: string
   dishes: Dish[]
 }
 
@@ -19,6 +20,7 @@ export interface FamilyListItem {
   location?: string
   bio?: string
   profileImageUrl?: string
+  kitchenCategory?: string
 }
 
 export interface UpdateProfilePayload {
@@ -27,6 +29,7 @@ export interface UpdateProfilePayload {
   location?: string
   bio?: string
   profileImage?: File
+  kitchenCategory?: string
 }
 
 export interface UpdateFamilyResponse {
@@ -36,6 +39,7 @@ export interface UpdateFamilyResponse {
   bio?: string
   profileImageUrl?: string
   whatsAppNumber: string
+  kitchenCategory?: string
 }
 
 // ── Endpoints ──────────────────────────────────────────────────────────────
@@ -47,8 +51,9 @@ export const getFamilyProfile = async (id: number): Promise<FamilyProfile> => {
 }
 
 /** Fetch all families (used for browsing / search). */
-export const getAllFamilies = async (): Promise<FamilyListItem[]> => {
-  const res = await apiClient.get<FamilyListItem[]>('families')
+export const getAllFamilies = async (category?: string): Promise<FamilyListItem[]> => {
+  const params = category ? { category } : {}
+  const res = await apiClient.get<FamilyListItem[]>('families', { params })
   return res.data
 }
 
@@ -63,6 +68,7 @@ export const updateFamilyProfile = async (
   if (payload.whatsAppNumber) form.append('whatsAppNumber',  payload.whatsAppNumber)
   if (payload.location !== undefined) form.append('location', payload.location)
   if (payload.bio      !== undefined) form.append('bio',      payload.bio)
+  if (payload.kitchenCategory !== undefined) form.append('kitchenCategory', payload.kitchenCategory)
   if (payload.profileImage)  form.append('profileImage',    payload.profileImage)
 
   const res = await apiClient.put<UpdateFamilyResponse>(`families/${id}`, form, {

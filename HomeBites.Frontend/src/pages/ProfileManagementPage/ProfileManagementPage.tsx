@@ -18,6 +18,7 @@ interface FormValues {
   whatsAppNumber: string
   bio: string
   location: string
+  kitchenCategory: string
 }
 
 type ToastState = { message: string; type: 'success' | 'error' } | null
@@ -58,7 +59,7 @@ export default function ProfileManagementPage() {
   const [toast, setToast] = useState<ToastState>(null)
 
   // ── Form values ────────────────────────────────────────────────────────
-  const emptyForm: FormValues = { name: '', whatsAppNumber: '', bio: '', location: '' }
+  const emptyForm: FormValues = { name: '', whatsAppNumber: '', bio: '', location: '', kitchenCategory: '' }
   const [form, setForm] = useState<FormValues>(emptyForm)
   const [initialForm, setInitialForm] = useState<FormValues>(emptyForm)
 
@@ -86,6 +87,7 @@ export default function ProfileManagementPage() {
         whatsAppNumber: data.whatsAppNumber  ?? '',
         bio:            data.bio             ?? '',
         location:       data.location        ?? '',
+        kitchenCategory: data.kitchenCategory ?? '',
       }
       setForm(values)
       setInitialForm(values)
@@ -144,6 +146,7 @@ export default function ProfileManagementPage() {
         whatsAppNumber: form.whatsAppNumber  || undefined,
         location:       form.location,
         bio:            form.bio,
+        kitchenCategory: form.kitchenCategory || undefined,
         profileImage:   photoFile ?? undefined,
       }
       const updated = await updateFamilyProfile(familyId, token, payload)
@@ -159,6 +162,7 @@ export default function ProfileManagementPage() {
         whatsAppNumber: updated.whatsAppNumber  ?? '',
         bio:            updated.bio             ?? '',
         location:       updated.location        ?? '',
+        kitchenCategory: updated.kitchenCategory ?? '',
       }
       setForm(newValues)
       setInitialForm(newValues)
@@ -279,6 +283,28 @@ export default function ProfileManagementPage() {
                   disabled={saving}
                 />
               </div>
+            </div>
+
+            {/* Kitchen Category */}
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="field-category">
+                Kitchen Category
+              </label>
+              <select
+                id="field-category"
+                className={styles.input}
+                value={form.kitchenCategory}
+                onChange={(e) => setForm(prev => ({ ...prev, kitchenCategory: e.target.value }))}
+                disabled={saving}
+              >
+                <option value="" disabled>Select a category</option>
+                <option value="Traditional">Traditional</option>
+                <option value="Bakery">Bakery</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Grill">Grill</option>
+                <option value="Italian">Italian</option>
+                <option value="Arabian">Arabian</option>
+              </select>
             </div>
 
             {/* Bio — full width */}

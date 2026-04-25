@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useFamilyProfile } from '../../hooks/useFamilyProfile'
-import { DishCard } from '../../components/DishCard/DishCard'
+import { ProfileDishCard } from '../../components/ProfileDishCard/ProfileDishCard'
 import { IMAGE_BASE_URL } from '../../api/apiClient'
 import { MessageOutlined, EnvironmentOutlined, ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons'
 import styles from './FamilyProfilePage.module.scss'
@@ -199,7 +199,7 @@ const FamilyProfilePage: React.FC = () => {
               </h2>
               <div className={styles.dishGrid}>
                 {dishes.map(dish => (
-                  <DishCard key={dish.id} dish={dish} showFamily={false} />
+                  <ProfileDishCard key={dish.id} dish={dish} />
                 ))}
               </div>
             </section>
@@ -213,7 +213,7 @@ const FamilyProfilePage: React.FC = () => {
             </h2>
             <div className={styles.dishGrid}>
               {filteredDishes.map(dish => (
-                <DishCard key={dish.id} dish={dish} showFamily={false} />
+                <ProfileDishCard key={dish.id} dish={dish} />
               ))}
             </div>
           </section>

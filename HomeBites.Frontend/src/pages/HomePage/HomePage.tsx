@@ -1,80 +1,129 @@
 import React, { useState } from 'react'
-import { useDishes } from '../../hooks/useDishes'
-import { useCategories } from '../../hooks/useCategories'
-import { DishCard } from '../../components/DishCard/DishCard'
-import { CategoryFilter } from '../../components/CategoryFilter/CategoryFilter'
+import { useNavigate } from 'react-router-dom'
+import { useFamilies } from '../../hooks/useFamilies'
+import { UserOutlined, ShopOutlined } from '@ant-design/icons'
 import styles from './HomePage.module.scss'
-import { SearchOutlined } from '@ant-design/icons'
+
+const KITCHEN_CATEGORIES = [
+  'Traditional',
+  'Bakery',
+  'Vegan',
+  'Grill',
+  'Italian',
+  'Arabian'
+]
 
 const HomePage: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const { families, loading } = useFamilies(selectedCategory || undefined)
+  const navigate = useNavigate()
 
-  const { categories, loading: catsLoading } = useCategories()
-  const { dishes, loading: dishesLoading } = useDishes(searchQuery, selectedCategory)
+  // Helper to resolve profile image URL
+  const apiBase = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'
+  const getFullUrl = (url?: string) => {
+    if (!url) return undefined
+    if (url.startsWith('http')) return url
+    return `${apiBase}/${url}`
+  }
 
   return (
     <div className={styles.pageContainer}>
-      {/* Header Section */}
-      <header className={`surface-section ${styles.headerSection}`}>
+      {/* Hero Section */}
+      <header className={`surface-section ${styles.heroSection}`}>
         <div className="container">
           <div className={styles.heroContent}>
-            <h1 className="text-display-md">
-              Discover <span className="gradient-text">Home Cooked</span> Meals
+            <h1 className="text-display-lg">
+              Explore Our <span className="gradient-text">Kitchens</span>
             </h1>
             <p className="text-body-lg text-muted">
-              Authentic flavors from local families, straight to your table.
+              Discover authentic culinary experiences crafted by local home cooks.
             </p>
-            
-            <div className={styles.searchBar}>
-              <SearchOutlined className={styles.searchIcon} />
-              <input 
-                type="text" 
-                placeholder="Search dishes, ingredients, or families..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className={styles.searchInput}
-              />
-            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className={`container ${styles.mainContent}`}>
+        {/* Category Pills */}
         <section className={styles.filterSection}>
-          <h2 className="text-headline-md">Categories</h2>
-          {!catsLoading && (
-            <CategoryFilter 
-              categories={categories} 
-              selectedCategoryId={selectedCategory} 
-              onSelectCategory={setSelectedCategory} 
-            />
-          )}
+          <div className={styles.categoryPills}>
+            <button
+              className={`${styles.pill} ${!selectedCategory ? styles.activePill : ''}`}
+              onClick={() => setSelectedCategory(null)}
+            >
+              All
+            </button>
+            {KITCHEN_CATEGORIES.map(cat => (
+              <button
+                key={cat}
+                className={`${styles.pill} ${selectedCategory === cat ? styles.activePill : ''}`}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </section>
 
-        <section className={styles.dishesSection}>
+        {/* Kitchens Grid */}
+        <section className={styles.kitchensSection}>
           <div className={styles.sectionHeader}>
             <h2 className="text-headline-md">
-              {searchQuery ? 'Search Results' : 'Featured Dishes'}
+              {selectedCategory ? `${selectedCategory} Kitchens` : 'All Kitchens'}
             </h2>
-            <span className="text-muted">{dishes.length} dishes</span>
+            <span className="text-muted">{families.length} kitchens</span>
           </div>
 
-          {dishesLoading ? (
+          {loading ? (
             <div className={styles.loadingState}>
-              <span className="text-headline-md">Loading dishes...</span>
+              <span className="text-headline-md">Loading kitchens...</span>
             </div>
-          ) : dishes.length > 0 ? (
-            <div className={styles.dishesGrid}>
-              {dishes.map(dish => (
-                <DishCard key={dish.id} dish={dish} />
+          ) : families.length > 0 ? (
+            <div className={styles.kitchensGrid}>
+              {families.map(family => (
+                <div 
+                  key={family.id} 
+                  className={styles.kitchenCard}
+                  onClick={() => navigate(`/family/${family.id}`)}
+                >
+                  <div className={styles.cardHeader}>
+                    {family.profileImageUrl ? (
+                      <img 
+                        src={getFullUrl(family.profileImageUrl)} 
+                        alt={family.name} 
+                        className={styles.profileImage}
+                      />
+                    ) : (
+                      <div className={styles.avatarPlaceholder}>
+                        <UserOutlined className={styles.avatarIcon} />
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className={styles.cardBody}>
+                    <h3 className={styles.kitchenName}>{family.name}</h3>
+                    
+                    {family.kitchenCategory && (
+                      <div className={styles.categoryBadge}>
+                        <ShopOutlined /> {family.kitchenCategory}
+                      </div>
+                    )}
+                    
+                    <p className={styles.kitchenBio}>
+                      {family.bio || 'This home cook is busy preparing delicious meals!'}
+                    </p>
+                    
+                    {family.location && (
+                      <p className={styles.kitchenLocation}>📍 {family.location}</p>
+                    )}
+                  </div>
+                </div>
               ))}
             </div>
           ) : (
             <div className={styles.emptyState}>
-              <p className="text-headline-md text-muted">No dishes found.</p>
-              <p className="text-body-lg text-muted">Try adjusting your search or category filter.</p>
+              <p className="text-headline-md text-muted">No kitchens found.</p>
+              <p className="text-body-lg text-muted">Try selecting a different category.</p>
             </div>
           )}
         </section>
