@@ -12,7 +12,7 @@ public class PhotoService
 
     public PhotoService(IConfiguration configuration)
     {
-        var connectionString = configuration["AzureBlobStorage:ConnectionString"];
+        var connectionString = configuration["AzureBlobStorageConnectionString"] ?? configuration["AzureBlobStorage:ConnectionString"];
         _containerName = configuration["AzureBlobStorage:ContainerName"] ?? "homebites-uploads";
 
         if (!string.IsNullOrEmpty(connectionString))
