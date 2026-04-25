@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate()
 
   // Helper to resolve profile image URL
-  const apiBase = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'
+  const apiBase = import.meta.env.VITE_API_BASE_URL?.replace('/api', '') || 'http://localhost:5000'
   const getFullUrl = (url?: string) => {
     if (!url) return undefined
     if (url.startsWith('http')) return url

@@ -16,7 +16,7 @@ export default function Header({ onHamburgerClick, showHamburger }: HeaderProps)
   const navigate = useNavigate()
 
   // Resolve full URL for the profile image
-  const apiBase = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'
+  const apiBase = import.meta.env.VITE_API_BASE_URL?.replace('/api', '') || 'http://localhost:5000'
   const fullProfileUrl = user?.profileImageUrl 
     ? (user.profileImageUrl.startsWith('http') ? user.profileImageUrl : `${apiBase}/${user.profileImageUrl}`)
     : undefined
