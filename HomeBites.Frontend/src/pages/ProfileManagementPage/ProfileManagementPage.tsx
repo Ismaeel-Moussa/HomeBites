@@ -5,7 +5,7 @@ import { useAuth } from '../../hooks/useAuth'
 import { getFamilyProfile } from '../../api/families'
 import { updateFamilyProfile } from '../../api/families'
 import type { UpdateProfilePayload } from '../../api/families'
-import { IMAGE_BASE_URL } from '../../api/apiClient'
+import { getImageUrl } from '../../api/apiClient'
 import styles from './ProfileManagementPage.module.scss'
 
 // ── Constants ──────────────────────────────────────────────────────────────
@@ -182,7 +182,7 @@ export default function ProfileManagementPage() {
 
   // ── Computed avatar src ────────────────────────────────────────────────
   const avatarSrc = photoPreview
-    ?? (serverImageUrl ? `${IMAGE_BASE_URL}/${serverImageUrl}` : null)
+    ?? (serverImageUrl ? getImageUrl(serverImageUrl) : null)
 
   const bioCharsLeft = MAX_BIO_CHARS - form.bio.length
   const isDirty =
