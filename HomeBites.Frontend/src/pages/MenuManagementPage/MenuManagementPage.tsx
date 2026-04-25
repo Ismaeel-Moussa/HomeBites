@@ -8,7 +8,7 @@ import {
 import { useAuth } from '../../hooks/useAuth'
 import { getMyDishes, deleteDish } from '../../api/dishes'
 import type { Dish } from '../../hooks/useDishes'
-import { IMAGE_BASE_URL } from '../../api/apiClient'
+import { getImageUrl } from '../../api/apiClient'
 import { DishModal } from '../../components/DishModal/DishModal'
 import styles from './MenuManagementPage.module.scss'
 
@@ -177,7 +177,7 @@ export default function MenuManagementPage() {
           ) : (
             dishes.map(dish => {
               const imageUrl = dish.imageUrl
-                ? `${IMAGE_BASE_URL}/${dish.imageUrl}`
+                ? getImageUrl(dish.imageUrl)
                 : 'https://placehold.co/600x400/f2f7ff/904800?text=No+Image'
 
               return (
