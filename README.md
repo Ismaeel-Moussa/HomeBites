@@ -1,3 +1,11 @@
+# HomeBites
+
+- **Live Project:** [https://eathomebites.netlify.app](https://eathomebites.netlify.app)
+- **Repository:** [https://github.com/Ismaeel-Moussa/HomeBites](https://github.com/Ismaeel-Moussa/HomeBites)
+- **Video Demo:** [https://youtu.be/hFyIgxYZwog?si=XsmmL2nxuZVJ4Epp](https://youtu.be/hFyIgxYZwog?si=XsmmL2nxuZVJ4Epp)
+
+---
+
 ##  Team Members
 
 | Name | ID | GitHub Username |
